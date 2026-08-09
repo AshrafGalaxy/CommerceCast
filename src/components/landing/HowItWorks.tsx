@@ -14,7 +14,7 @@ const IngestPreview = () => {
     { label: 'timestamp', value: 'now', color: 'text-amber-400' },
   ];
   return (
-    <div className="w-full rounded-lg bg-background/60 border border-border/60 p-3 font-mono text-[10px] space-y-1.5">
+    <div className="w-full rounded-lg bg-background/60 border border-border/60 p-3 font-sans text-[10px] space-y-1.5">
       {rows.map((row, i) => (
         <motion.div
           key={row.label}
@@ -54,9 +54,9 @@ const AIPreview = () => {
   return (
     <div className="w-full rounded-lg bg-background/60 border border-border/60 p-3 space-y-2">
       <div className="flex justify-between items-center mb-1">
-        <span className="text-[9px] uppercase tracking-widest text-muted-foreground font-mono">Ensemble Model</span>
+        <span className="text-[9px] uppercase tracking-widest text-muted-foreground font-sans">Ensemble Model</span>
         <motion.span
-          className="text-[9px] text-blue-400 font-mono font-bold"
+          className="text-[9px] text-blue-400 font-sans font-bold"
           animate={{ opacity: [0.4, 1, 0.4] }}
           transition={{ duration: 1.5, repeat: Infinity }}
         >
@@ -74,7 +74,7 @@ const AIPreview = () => {
               transition={{ duration: 2, repeat: Infinity, delay: (ri + ci) * 0.15 }}
             />
           ))}
-          <span className="text-[8px] text-muted-foreground font-mono w-8 shrink-0">
+          <span className="text-[8px] text-muted-foreground font-sans w-8 shrink-0">
             {(row.reduce((a, b) => a + b, 0) / row.length).toFixed(2)}
           </span>
         </div>
@@ -90,11 +90,11 @@ const OutputPreview = () => {
   return (
     <div className="w-full rounded-lg bg-background/60 border border-border/60 p-3">
       <div className="flex justify-between items-center mb-3">
-        <span className="text-[9px] uppercase tracking-widest text-muted-foreground font-mono">7-Day Forecast</span>
+        <span className="text-[9px] uppercase tracking-widest text-muted-foreground font-sans">7-Day Forecast</span>
         <div className="flex items-center gap-1">
           <TrendingUp className="w-3 h-3 text-blue-400" />
           <motion.span
-            className="text-[9px] text-blue-400 font-mono font-bold"
+            className="text-[9px] text-blue-400 font-sans font-bold"
             animate={{ opacity: [0.6, 1, 0.6] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
@@ -123,7 +123,7 @@ const OutputPreview = () => {
       </div>
       <div className="flex justify-between mt-1.5">
         {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((d, i) => (
-          <span key={i} className="text-[8px] text-muted-foreground font-mono flex-1 text-center">{d}</span>
+          <span key={i} className="text-[8px] text-muted-foreground font-sans flex-1 text-center">{d}</span>
         ))}
       </div>
     </div>
