@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 // --- MASTERCLASS SVG GRAPHICS ---
 
 const DashboardGraphic = () => (
-  <svg className="absolute -top-4 -right-4 w-[18rem] h-[18rem] pointer-events-none" viewBox="0 0 200 200" fill="none">
+  <svg className="absolute -bottom-8 -right-8 w-[18rem] h-[18rem] pointer-events-none" viewBox="0 0 200 200" fill="none">
     <defs>
       <filter id="glass-blur" x="-20%" y="-20%" width="140%" height="140%">
         <feGaussianBlur stdDeviation="4" result="blur" />
@@ -68,7 +68,7 @@ const DashboardGraphic = () => (
 );
 
 const AlertsGraphic = () => (
-  <svg className="absolute -top-2 -right-2 w-60 h-60 pointer-events-none" viewBox="0 0 200 200" fill="none">
+  <svg className="absolute -bottom-6 -right-6 w-60 h-60 pointer-events-none" viewBox="0 0 200 200" fill="none">
     <defs>
       <radialGradient id="alert-glow" cx="50%" cy="50%" r="50%">
         <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.5" />
@@ -111,7 +111,7 @@ const AlertsGraphic = () => (
 );
 
 const APIGraphic = () => (
-  <svg className="absolute -top-4 -right-4 w-60 h-60 pointer-events-none" viewBox="0 0 200 200" fill="none">
+  <svg className="absolute -bottom-8 -right-8 w-60 h-60 pointer-events-none" viewBox="0 0 200 200" fill="none">
     <defs>
       <filter id="api-glow">
         <feGaussianBlur stdDeviation="4" result="blur" />
@@ -152,7 +152,7 @@ const APIGraphic = () => (
 );
 
 const PromoGraphic = () => (
-  <svg className="absolute -top-4 -right-4 w-64 h-64 pointer-events-none" viewBox="0 0 200 200" fill="none">
+  <svg className="absolute -bottom-8 -right-8 w-64 h-64 pointer-events-none" viewBox="0 0 200 200" fill="none">
     <defs>
       <linearGradient id="promo-grad" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#10B981" stopOpacity="0.5" />
@@ -202,7 +202,7 @@ const PromoGraphic = () => (
 );
 
 const SecurityGraphic = () => (
-  <svg className="absolute -top-2 -right-2 w-60 h-60 pointer-events-none" viewBox="0 0 200 200" fill="none">
+  <svg className="absolute -bottom-6 -right-6 w-60 h-60 pointer-events-none" viewBox="0 0 200 200" fill="none">
     {/* Concentric Precision Rings */}
     <motion.g animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} style={{ transformOrigin: "100px 100px" }}>
       <circle cx="100" cy="100" r="55" stroke="#64748B" strokeWidth="1.5" strokeDasharray="4 8" opacity="0.4" fill="none" />
@@ -242,7 +242,7 @@ const SecurityGraphic = () => (
 );
 
 const ExportsGraphic = () => (
-  <svg className="absolute -top-2 -right-2 w-60 h-60 pointer-events-none" viewBox="0 0 200 200" fill="none">
+  <svg className="absolute -bottom-6 -right-6 w-60 h-60 pointer-events-none" viewBox="0 0 200 200" fill="none">
     {/* Chaos sorting */}
     <motion.g initial={{ opacity: 1 }} variants={{ hover: { opacity: 0, transition: { duration: 0.3 } } }}>
       {[
@@ -382,8 +382,7 @@ function BentoCard({ card, index }: { card: (typeof cards)[number], index: numbe
         hover: { y: -3, transition: { duration: 0.2 } }
       }}
       className={cn(
-        `group relative flex flex-col justify-start p-8 rounded-2xl border border-border/80 bg-card text-card-foreground overflow-hidden cursor-default transition-shadow hover:shadow-lg hover:border-border`,
-        sizeClasses[card.size as CardSize]
+        `group relative flex flex-col justify-start p-8 rounded-2xl border border-border/80 bg-card text-card-foreground overflow-hidden cursor-default transition-shadow hover:shadow-lg hover:border-border`
       )}
     >
       {/* 1. Mouse Spotlight Glow */}
@@ -435,7 +434,8 @@ export function BentoGrid() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-[320px] relative z-10">
+        {/* Grid Layout (Uniform 3-column) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[320px] relative z-10">
           {cards.map((card, i) => (
             <BentoCard key={card.id} card={card} index={i} />
           ))}
