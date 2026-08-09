@@ -160,12 +160,12 @@ export function PricingSection() {
                   placeholder="your@email.com"
                   value={notifyEmail}
                   onChange={(e) => setNotifyEmail(e.target.value)}
-                  className="flex-1 h-10 rounded-lg border border-border/50 bg-muted/40 px-3 text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-primary/50 transition-all"
+                  className="flex-1 h-9 rounded-lg border border-border/50 bg-muted/40 px-2.5 text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-primary/50 transition-all"
                 />
                 <Button
                   onClick={() => { if (notifyEmail) setSubmitted(true); }}
-                  size="default"
-                  className="font-semibold shrink-0"
+                  size="sm"
+                  className="font-semibold shrink-0 h-9"
                 >
                   Notify me
                 </Button>

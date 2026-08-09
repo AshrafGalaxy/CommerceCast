@@ -24,6 +24,7 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
   const [showAiAlert, setShowAiAlert] = useState(false);
   const [alertResolved, setAlertResolved] = useState(false);
   const [animationCaption, setAnimationCaption] = useState<string | null>(null);
+  const [sequenceProgress, setSequenceProgress] = useState(0);
 
   const [isPaused, setIsPaused] = useState(false);
   const isPausedRef = useRef(false);
@@ -53,6 +54,9 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
       setShowTooltip(false);
       setShowToast(null);
       setAnimationCaption(null);
+      setShowAiAlert(false);
+      setAlertResolved(false);
+      setSequenceProgress(0);
       autoPlayRef.current = false;
       return;
     }
@@ -88,12 +92,14 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
         setExtractHovered(false);
         setActiveKpi('revenue');
         setAnimationCaption("Step 1: Connecting Data Sources");
+        setSequenceProgress(0);
         
         await smartWait(800);
         if (!isMounted || !autoPlayRef.current) return;
 
         // Move to upload box
         setCursorState({ left: "50%", top: "70%", opacity: 1, scale: 1 });
+        setSequenceProgress(5);
         await smartWait(400);
         if (!isMounted || !autoPlayRef.current) return;
 
@@ -124,12 +130,14 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
         // Transition to processing
         setGlobalPhase('processing');
         setAnimationCaption("Step 2: Data Cleaning & Feature Engineering");
+        setSequenceProgress(40);
         await smartWait(800);
         if (!isMounted || !autoPlayRef.current) return;
 
         // Processing steps
         for (let step = 1; step <= 4; step++) {
           setProcessStep(step);
+          setSequenceProgress(40 + (step * 5)); // 45, 50, 55, 60
           await smartWait(800);
           if (!isMounted || !autoPlayRef.current) return;
         }
@@ -140,6 +148,7 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
         // Transition to dashboard
         setGlobalPhase('dashboard');
         setAnimationCaption("Step 3: Extracting Actionable Insights");
+        setSequenceProgress(65);
         await smartWait(800);
         if (!isMounted || !autoPlayRef.current) return;
         setCursorState({ left: "15%", top: "70%", opacity: 1, scale: 1 });
@@ -162,6 +171,7 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
         // 4. Actionable AI Insight (Alert Banner)
         setShowAiAlert(true);
         setAnimationCaption("Step 4: AI Auto-Optimization");
+        setSequenceProgress(75);
         await smartWait(800);
         if (!isMounted || !autoPlayRef.current) return;
 
@@ -228,6 +238,7 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
 
         // 6. Extract Report
         setAnimationCaption("Step 5: Generating Forecast Report");
+        setSequenceProgress(90);
         setCursorState({ left: "87%", top: "9%", opacity: 1, scale: 1 });
         await smartWait(400);
         if (!isMounted || !autoPlayRef.current) return;
@@ -247,6 +258,7 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
         if (!isMounted || !autoPlayRef.current) return;
         
         setShowToast({ title: "Report Downloaded", desc: "Sales_Forecast_Q4.pdf" });
+        setSequenceProgress(100);
         await smartWait(1000);
         if (!isMounted || !autoPlayRef.current) return;
         
@@ -358,14 +370,22 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
         )}
       </AnimatePresence>
       
-      {/* Play/Pause Control */}
-      <div className="absolute bottom-6 left-6 z-50">
-        <button 
+      {/* Media Player Controls */}
+      <div className="absolute bottom-6 left-6 z-50 flex items-center gap-4 px-4 py-2.5 rounded-full bg-background/80 backdrop-blur-md border border-border shadow-lg">
+        <button
           onClick={togglePause}
-          className="flex items-center justify-center w-12 h-12 rounded-full bg-background/80 backdrop-blur border border-border shadow-lg hover:scale-105 active:scale-95 transition-all text-foreground"
+          className="text-foreground hover:text-primary transition-colors flex items-center justify-center"
         >
-          {isPaused ? <Play className="w-5 h-5 ml-1" /> : <Pause className="w-5 h-5" />}
+          {isPaused ? <Play className="w-4 h-4 fill-current" /> : <Pause className="w-4 h-4 fill-current" />}
         </button>
+        <div className="w-32 sm:w-48 h-1.5 bg-muted rounded-full overflow-hidden">
+          <motion.div 
+            className="h-full bg-primary"
+            initial={{ width: 0 }}
+            animate={{ width: `${sequenceProgress}%` }}
+            transition={{ ease: "linear", duration: 0.3 }}
+          />
+        </div>
       </div>
     </div>
   );

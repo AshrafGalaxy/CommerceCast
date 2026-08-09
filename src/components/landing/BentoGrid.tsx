@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import {
   TrendingUp, Package, Zap, BarChart3, Globe, ShieldCheck,
-  Smartphone, Webhook, RefreshCw
+  FileSpreadsheet, Webhook, RefreshCw
 } from 'lucide-react';
 
 const cards = [
@@ -42,7 +42,7 @@ const cards = [
     icon: Globe,
     title: 'Multi-channel aggregation',
     desc: 'Shopify, Amazon, WooCommerce, Flipkart — demand unified across every channel.',
-    size: 'medium',
+    size: 'small',
     gradient: 'from-emerald-500/10 to-green-500/5',
     iconColor: 'text-emerald-500',
     border: 'border-emerald-500/15',
@@ -58,10 +58,10 @@ const cards = [
     border: 'border-slate-500/15',
   },
   {
-    id: 'mobile',
-    icon: Smartphone,
-    title: 'Mobile-ready',
-    desc: 'Full dashboard on any device — iOS & Android app coming Q3.',
+    id: 'exports',
+    icon: FileSpreadsheet,
+    title: 'Custom exports',
+    desc: 'Export your forecasts to CSV, Excel, or connect directly to your BI tools.',
     size: 'small',
     gradient: 'from-pink-500/10 to-rose-500/5',
     iconColor: 'text-pink-500',

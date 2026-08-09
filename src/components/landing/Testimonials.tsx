@@ -5,46 +5,46 @@ import { Star, BadgeCheck } from 'lucide-react';
 
 const testimonialsRow1 = [
   {
-    name: 'Sarah Jenkins',
+    name: 'Sneha Reddy',
     role: 'VP of E-commerce',
-    company: 'StyleCo',
+    company: 'ThreadCraft India',
     content:
-      'Q4 used to be pure chaos — constant stockouts, endless spreadsheets. With CommerceCast, our stockouts dropped 80%. The predictive engine is genuinely that good.',
+      'Diwali sales used to be pure chaos — constant stockouts and endless spreadsheets. With CommerceCast, our stockouts dropped 80% during peak season. The predictive engine is genuinely that good.',
     stars: 5,
-    avatar: 'https://api.dicebear.com/9.x/notionists/svg?seed=SarahJ&backgroundColor=dbeafe',
+    avatar: 'https://api.dicebear.com/9.x/notionists/svg?seed=SnehaR&backgroundColor=dbeafe',
     highlight: 'Stockouts dropped 80%',
   },
   {
-    name: 'David Chen',
+    name: 'Rohan Sharma',
     role: 'Founder',
-    company: 'TechGear',
+    company: 'GadgetMandi',
     content:
-      'The Promotion Simulator saved us from a Black Friday deal that would have obliterated our margins. Seeing the outcome before running the promo is like having a superpower.',
+      'The Promotion Simulator saved us from a Big Billion Days deal that would have obliterated our margins. Seeing the outcome before running the promo on Flipkart is like having a superpower.',
     stars: 5,
-    avatar: 'https://api.dicebear.com/9.x/notionists/svg?seed=DavidC&backgroundColor=ede9fe',
+    avatar: 'https://api.dicebear.com/9.x/notionists/svg?seed=RohanS&backgroundColor=ede9fe',
     highlight: 'Margin-safe promotions',
   },
   {
-    name: 'Elena Rodriguez',
+    name: 'Anjali Desai',
     role: 'Director of Ops',
-    company: 'NovaBrands',
+    company: 'NovaBrands D2C',
     content:
-      'I had it integrated with our Shopify store in an afternoon. The UI feels like a consumer product, not enterprise software. My team actually uses it every day.',
+      'I had it integrated with our Shopify India store in an afternoon. The UI feels like a consumer app, not clunky enterprise software. My team actually logs in every day.',
     stars: 5,
-    avatar: 'https://api.dicebear.com/9.x/notionists/svg?seed=ElenaR&backgroundColor=fef3c7',
+    avatar: 'https://api.dicebear.com/9.x/notionists/svg?seed=AnjaliD&backgroundColor=fef3c7',
     highlight: 'Set up in one afternoon',
   },
 ];
 
 const testimonialsRow2 = [
   {
-    name: 'Marcus Thorne',
+    name: 'Vikram Singh',
     role: 'Head of Growth',
-    company: 'Summit Labs',
+    company: 'PeakScale',
     content:
-      "It's the first analytics tool my team logs into without being asked. The data storytelling is exceptional — everything is visual, clear, and immediately actionable.",
+      "It's the first analytics tool my ops team logs into without being asked. The data storytelling is exceptional — everything is visual, clear, and immediately actionable for the Indian market.",
     stars: 5,
-    avatar: 'https://api.dicebear.com/9.x/notionists/svg?seed=MarcusT&backgroundColor=dcfce7',
+    avatar: 'https://api.dicebear.com/9.x/notionists/svg?seed=VikramS&backgroundColor=dcfce7',
     highlight: 'Team adoption overnight',
   },
   {
@@ -52,19 +52,19 @@ const testimonialsRow2 = [
     role: 'Supply Chain Manager',
     company: 'Lumiere Beauty',
     content:
-      'We slashed our carrying costs by 30% in three months. The dynamic safety stock feature alone paid for the entire year of CommerceCast. Incredible ROI.',
+      'We slashed our warehouse carrying costs by 30% in three months. The dynamic safety stock feature alone paid for the entire year of CommerceCast. Incredible ROI for our cosmetic lines.',
     stars: 5,
     avatar: 'https://api.dicebear.com/9.x/notionists/svg?seed=PriyaP&backgroundColor=fce7f3',
     highlight: '30% carrying cost reduction',
   },
   {
-    name: 'Tom Wilson',
+    name: 'Amit Agarwal',
     role: 'CEO',
-    company: 'Urban Carry',
+    company: 'UrbanKala',
     content:
-      'Multi-channel used to be a nightmare. Now I have a single pane of glass for Amazon and Shopify. CommerceCast instantly aggregated our demand signals.',
+      'Multi-channel used to be a nightmare in India. Now I have a single pane of glass for Amazon India, Flipkart, and Shopify. CommerceCast instantly aggregated our demand signals.',
     stars: 5,
-    avatar: 'https://api.dicebear.com/9.x/notionists/svg?seed=TomW&backgroundColor=e0e7ff',
+    avatar: 'https://api.dicebear.com/9.x/notionists/svg?seed=AmitA&backgroundColor=e0e7ff',
     highlight: 'Unified demand signals',
   },
 ];
@@ -83,11 +83,12 @@ function TestimonialCard({ t }: { t: typeof testimonialsRow1[0] }) {
   return (
     <div className="w-[380px] shrink-0 group flex flex-col gap-5 p-6 rounded-2xl bg-background border border-border/50 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 mx-3 cursor-default">
       {/* Stars + Highlight */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3">
         <Stars count={t.stars} />
-        <span className="text-[11px] font-semibold text-primary bg-primary/[0.08] px-2.5 py-1 rounded-full border border-primary/15 transition-colors group-hover:bg-primary/10">
-          {t.highlight}
-        </span>
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 text-primary w-fit shadow-sm backdrop-blur-sm transition-all group-hover:border-primary/40 group-hover:shadow-[0_0_12px_rgba(59,130,246,0.15)]">
+          <BadgeCheck className="w-3.5 h-3.5 text-primary drop-shadow-md" />
+          <span className="text-[10px] font-bold uppercase tracking-wider">{t.highlight}</span>
+        </div>
       </div>
 
       {/* Quote */}

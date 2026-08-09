@@ -40,7 +40,7 @@ export function HowItWorks() {
   const opacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
 
   return (
-    <section className="relative w-full py-24 md:py-32 bg-background overflow-hidden border-y border-border/30">
+    <section className="relative w-full py-24 md:py-32 bg-background overflow-hidden">
       <div className="container px-4">
         {/* Header */}
         <motion.div
@@ -66,53 +66,54 @@ export function HowItWorks() {
               
               {/* Base Trace */}
               <path
-                d="M 0 12 H 16 L 22 24 H 78 L 84 12 H 100"
+                d="M 0 12 H 100"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="0.5"
+                strokeWidth="1"
                 className="text-border"
               />
               
               {/* Animated Progress Trace */}
               <motion.path
-                d="M 0 12 H 16 L 22 24 H 78 L 84 12 H 100"
+                d="M 0 12 H 100"
                 fill="none"
                 stroke="url(#gradientLine)"
-                strokeWidth="1.5"
+                strokeWidth="3"
+                className="drop-shadow-[0_0_12px_rgba(59,130,246,0.8)]"
                 style={{ pathLength, opacity }}
               />
               
-              {/* Data Particle 1 */}
+              {/* Power Surge 1 */}
               <path
-                d="M 0 12 H 16 L 22 24 H 78 L 84 12 H 100"
+                d="M 0 12 H 100"
                 fill="none"
-                stroke="#3B82F6"
-                strokeWidth="2.5"
+                stroke="#60A5FA"
+                strokeWidth="4"
                 strokeLinecap="round"
-                strokeDasharray="0.5 150"
-                className="drop-shadow-[0_0_8px_rgba(59,130,246,1)]"
+                strokeDasharray="2 150"
+                className="drop-shadow-[0_0_15px_rgba(96,165,250,1)]"
               >
-                <animate attributeName="stroke-dashoffset" from="150" to="0" dur="2.5s" repeatCount="indefinite" />
+                <animate attributeName="stroke-dashoffset" from="150" to="-50" dur="2s" repeatCount="indefinite" />
               </path>
               
-              {/* Data Particle 2 */}
+              {/* Power Surge 2 */}
               <path
-                d="M 0 12 H 16 L 22 24 H 78 L 84 12 H 100"
+                d="M 0 12 H 100"
                 fill="none"
-                stroke="#8B5CF6"
-                strokeWidth="2.5"
+                stroke="#A78BFA"
+                strokeWidth="4"
                 strokeLinecap="round"
-                strokeDasharray="1 150"
-                className="drop-shadow-[0_0_8px_rgba(139,92,246,1)]"
+                strokeDasharray="4 150"
+                className="drop-shadow-[0_0_20px_rgba(167,139,250,1)]"
               >
-                <animate attributeName="stroke-dashoffset" from="150" to="0" dur="3s" begin="1s" repeatCount="indefinite" />
+                <animate attributeName="stroke-dashoffset" from="150" to="-50" dur="2.5s" begin="0.8s" repeatCount="indefinite" />
               </path>
 
               <defs>
                 <linearGradient id="gradientLine" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.2" />
-                  <stop offset="50%" stopColor="#3B82F6" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0.2" />
+                  <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.4" />
+                  <stop offset="50%" stopColor="#3B82F6" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0.4" />
                 </linearGradient>
               </defs>
             </svg>

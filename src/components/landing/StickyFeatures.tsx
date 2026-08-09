@@ -17,7 +17,6 @@ const features = [
     accentFrom: 'from-blue-500/20',
     accentTo: 'to-blue-600/5',
     iconColor: 'text-blue-500',
-    topBar: 'from-blue-400 to-cyan-400',
     badge: '95% confidence',
     badgeColor: 'bg-blue-500/15 text-blue-400 border-blue-500/20',
   },
@@ -30,8 +29,7 @@ const features = [
     accentFrom: 'from-emerald-500/20',
     accentTo: 'to-emerald-600/5',
     iconColor: 'text-emerald-500',
-    topBar: 'from-emerald-400 to-green-300',
-    badge: 'Live sync',
+    badge: 'Automated',
     badgeColor: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/20',
   },
   {
@@ -43,8 +41,7 @@ const features = [
     accentFrom: 'from-purple-500/20',
     accentTo: 'to-purple-600/5',
     iconColor: 'text-purple-500',
-    topBar: 'from-purple-500 to-pink-400',
-    badge: '2 variants',
+    badge: 'Real-time',
     badgeColor: 'bg-purple-500/15 text-purple-400 border-purple-500/20',
   },
 ];
@@ -62,7 +59,6 @@ const VisualForecasting = () => {
 
   return (
     <div className="w-full h-full flex flex-col p-4 sm:p-6 bg-card border border-border/80 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] overflow-hidden relative">
-      <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-500 rounded-t-2xl" />
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
         <div className="flex items-center gap-2">
           <Activity className="w-5 h-5 text-blue-500" />
@@ -97,7 +93,7 @@ const VisualForecasting = () => {
           <motion.path d={areaPath} fill="url(#fg-area)" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15, duration: 0.5 }} />
           <motion.path
             d={linePath} fill="none" stroke="url(#fg-line)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
-            initial={{ pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: 1.2, ease: 'easeOut' }}
+            initial={{ pathLength: 0, opacity: 1 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: 1.2, ease: 'easeOut' }}
           />
           <motion.circle cx={sx(pts.length - 1)} cy={sy(pts[pts.length - 1])} r="6" fill="#22d3ee" className="drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]"
             initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.2, type: 'spring' }} />
@@ -150,7 +146,6 @@ const VisualInventory = () => {
   ];
   return (
     <div className="w-full h-full flex flex-col p-4 sm:p-6 bg-card border border-border/80 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] overflow-hidden relative">
-      <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-emerald-500 via-green-400 to-emerald-500 rounded-t-2xl" />
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-5">
         <div className="flex items-center gap-2">
           <Box className="w-5 h-5 text-emerald-500" />
@@ -220,7 +215,6 @@ const VisualPromotion = () => {
   ];
   return (
     <div className="w-full h-full flex flex-col p-4 sm:p-6 bg-card border border-border/80 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] overflow-hidden relative">
-      <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 rounded-t-2xl" />
       <div className="flex justify-between items-center mb-5">
         <div className="flex items-center gap-2">
           <Percent className="w-5 h-5 text-purple-500" />
@@ -328,17 +322,7 @@ export function StickyFeatures() {
       style={{ height: `${features.length * 100}vh` }}
       className="relative"
     >
-      <div className="sticky top-14 h-screen overflow-hidden flex flex-col">
-        <div className="absolute top-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-          {features.map((f, i) => (
-            <div
-              key={f.id}
-              className={`h-1.5 rounded-full transition-all duration-500 ${
-                i === activeIndex ? 'w-8 bg-primary' : 'w-3 bg-border'
-              }`}
-            />
-          ))}
-        </div>
+      <div className="sticky top-14 h-[calc(100vh-3.5rem)] overflow-hidden flex flex-col">
 
         {/* 
           Responsive layout:
@@ -348,7 +332,20 @@ export function StickyFeatures() {
         <div className="h-full flex flex-col lg:flex-row pt-12 lg:pt-0 pb-16 lg:pb-0">
           
           {/* LEFT — Text panel */}
-          <div className="w-full lg:w-[45%] flex items-center justify-center px-6 md:px-12 lg:px-20 relative overflow-visible flex-shrink-0 mb-4 lg:mb-0">
+          <div className="w-full lg:w-[45%] flex items-center justify-center pl-10 pr-6 md:pl-16 md:pr-12 lg:pl-24 lg:pr-16 relative overflow-visible flex-shrink-0 mb-4 lg:mb-0">
+            
+            {/* Side Timeline Navigator */}
+            <div className="absolute left-4 lg:left-10 top-1/2 -translate-y-1/2 flex flex-col items-center gap-3">
+              {features.map((f, i) => (
+                <div
+                  key={f.id}
+                  className={`w-1 rounded-full transition-all duration-500 ${
+                    i === activeIndex ? 'h-8 bg-primary shadow-[0_0_12px_rgba(59,130,246,0.6)]' : 'h-2 bg-border/50'
+                  }`}
+                />
+              ))}
+            </div>
+
             <AnimatePresence mode="wait">
               <motion.div
                 key={feat.id}
