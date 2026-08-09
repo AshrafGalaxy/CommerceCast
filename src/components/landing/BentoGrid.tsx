@@ -4,297 +4,264 @@ import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   TrendingUp, Package, Zap, BarChart3, Globe, ShieldCheck,
-  FileSpreadsheet, Webhook, RefreshCw
+  FileSpreadsheet, Webhook, RefreshCw, BadgePercent
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-// --- ADVANCED CUSTOM SVG GRAPHICS ---
+// --- MASTERCLASS SVG GRAPHICS ---
 
 const DashboardGraphic = () => (
-  <svg className="absolute -bottom-10 -right-10 w-72 h-72 text-blue-500/15 transition-colors duration-500 group-hover:text-blue-500/30 pointer-events-none" viewBox="0 0 200 200" fill="none" stroke="currentColor">
-    {/* Dashboard Wireframe Frame */}
-    <rect x="20" y="20" width="160" height="120" rx="6" strokeWidth="2" opacity="0.4" />
-    <path d="M50 20 V140" strokeWidth="1" opacity="0.2" /> {/* Sidebar separator */}
-    <path d="M50 40 H180" strokeWidth="1" opacity="0.2" /> {/* Header separator */}
+  <svg className="absolute -bottom-10 -right-10 w-80 h-80 pointer-events-none" viewBox="0 0 200 200" fill="none">
+    <defs>
+      <filter id="glass-blur" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="4" result="blur" />
+        <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="glow" />
+        <feBlend in="SourceGraphic" in2="glow" />
+      </filter>
+      <linearGradient id="chart-grad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.4" />
+        <stop offset="100%" stopColor="#3B82F6" stopOpacity="0" />
+      </linearGradient>
+    </defs>
     
-    {/* Sidebar items */}
-    <rect x="25" y="30" width="20" height="4" rx="2" opacity="0.3" />
-    <rect x="25" y="45" width="15" height="4" rx="2" opacity="0.3" />
-    <rect x="25" y="60" width="18" height="4" rx="2" opacity="0.3" />
+    {/* Continuous Background Grid */}
+    <motion.g stroke="#3B82F6" strokeWidth="0.5" opacity="0.15" animate={{ x: [-20, 0] }} transition={{ repeat: Infinity, duration: 4, ease: "linear" }}>
+      {[...Array(12)].map((_, i) => (
+        <path key={`v-${i}`} d={`M${i * 20} 0 V200`} />
+      ))}
+      {[...Array(12)].map((_, i) => (
+        <path key={`h-${i}`} d={`M0 ${i * 20} H200`} />
+      ))}
+    </motion.g>
 
-    {/* Header items */}
-    <circle cx="165" cy="30" r="4" opacity="0.3" />
-    <rect x="135" y="28" width="20" height="4" rx="2" opacity="0.3" />
+    {/* Hover: Levitating Dashboard */}
+    <motion.g
+      initial={{ y: 20, opacity: 0.3, scale: 0.95 }}
+      variants={{ hover: { y: -10, opacity: 1, scale: 1, transition: { type: "spring", stiffness: 100 } } }}
+    >
+      {/* Glass Pane */}
+      <rect x="20" y="30" width="160" height="110" rx="8" fill="rgba(15, 23, 42, 0.7)" stroke="#3B82F6" strokeWidth="1" strokeOpacity="0.4" filter="url(#glass-blur)" />
+      
+      {/* Header */}
+      <rect x="30" y="40" width="40" height="6" rx="3" fill="#3B82F6" opacity="0.5" />
+      <rect x="140" y="40" width="30" height="6" rx="3" fill="#94A3B8" opacity="0.3" />
 
-    {/* Sparkline Graph (Animates on hover) */}
-    <motion.path 
-      d="M 60 110 C 80 110, 90 70, 110 80 C 130 90, 140 50, 160 50" 
-      stroke="#3B82F6" 
-      strokeWidth="3" 
-      strokeLinecap="round" 
-      strokeLinejoin="round"
-      initial={{ pathLength: 0, opacity: 0 }}
-      variants={{
-        hover: { pathLength: 1, opacity: 1, transition: { duration: 1, ease: "easeInOut" } }
-      }}
-    />
-
-    {/* Data points (Fade in sequentially) */}
-    {[
-      { cx: 60, cy: 110, delay: 0.2 },
-      { cx: 110, cy: 80, delay: 0.6 },
-      { cx: 160, cy: 50, delay: 1.0 }
-    ].map((point, i) => (
-      <motion.circle 
-        key={i} 
-        cx={point.cx} 
-        cy={point.cy} 
-        r="4" 
-        fill="#3B82F6"
-        stroke="none"
-        initial={{ opacity: 0, scale: 0 }}
-        variants={{
-          hover: { opacity: 1, scale: 1, transition: { delay: point.delay, duration: 0.3 } }
-        }}
+      {/* Spiking Area Chart */}
+      <motion.path 
+        d="M 30 120 L 50 110 L 80 115 L 110 70 L 140 80 L 170 40 V 130 H 30 Z" 
+        fill="url(#chart-grad)"
+        initial={{ opacity: 0 }}
+        variants={{ hover: { opacity: 1, transition: { delay: 0.2 } } }}
       />
-    ))}
+      <motion.path 
+        d="M 30 120 L 50 110 L 80 115 L 110 70 L 140 80 L 170 40" 
+        stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+        initial={{ pathLength: 0 }}
+        variants={{ hover: { pathLength: 1, transition: { duration: 0.8, ease: "easeOut" } } }}
+      />
+
+      {/* Data stream dots */}
+      <motion.circle cx="170" cy="40" r="4" fill="#fff" filter="url(#glass-blur)"
+        initial={{ opacity: 0, scale: 0 }}
+        variants={{ hover: { opacity: [0, 1, 0.5], scale: [0, 1.5, 1], transition: { delay: 0.8, duration: 0.5 } } }}
+      />
+      <motion.circle cx="110" cy="70" r="3" fill="#fff" filter="url(#glass-blur)"
+        initial={{ opacity: 0, scale: 0 }}
+        variants={{ hover: { opacity: [0, 1, 0.5], scale: [0, 1.5, 1], transition: { delay: 0.5, duration: 0.5 } } }}
+      />
+    </motion.g>
   </svg>
 );
 
 const AlertsGraphic = () => (
-  <svg className="absolute -bottom-6 -right-6 w-60 h-60 text-amber-500/15 transition-colors duration-500 group-hover:text-amber-500/30 pointer-events-none" viewBox="0 0 200 200" fill="none" stroke="currentColor">
-    {/* Mobile/Card Wireframe */}
-    <rect x="40" y="40" width="120" height="80" rx="12" strokeWidth="2" opacity="0.4" />
-    <path d="M40 70 H160" strokeWidth="1" opacity="0.2" />
-    <circle cx="60" cy="55" r="5" opacity="0.3" />
-    <rect x="75" y="53" width="40" height="4" rx="2" opacity="0.3" />
-    
-    {/* Content lines */}
-    <rect x="60" y="85" width="80" height="4" rx="2" opacity="0.2" />
-    <rect x="60" y="100" width="60" height="4" rx="2" opacity="0.2" />
+  <svg className="absolute -bottom-6 -right-6 w-60 h-60 pointer-events-none" viewBox="0 0 200 200" fill="none">
+    <defs>
+      <radialGradient id="alert-glow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.4" />
+        <stop offset="100%" stopColor="#F59E0B" stopOpacity="0" />
+      </radialGradient>
+    </defs>
 
-    {/* Animated Alert Badge */}
-    <motion.g
-      initial={{ opacity: 0, y: -20, scale: 0.8 }}
-      variants={{
-        hover: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 200, damping: 10 } }
-      }}
-    >
-      <circle cx="150" cy="40" r="14" fill="#F59E0B" opacity="0.2" stroke="none" />
-      <circle cx="150" cy="40" r="14" stroke="#F59E0B" strokeWidth="2" />
-      <path d="M148 35 V42 M148 45 V46" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" />
+    {/* Continuous breathing center */}
+    <motion.circle cx="100" cy="100" r="30" fill="url(#alert-glow)" animate={{ scale: [1, 1.5, 1], opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }} />
+    <circle cx="100" cy="100" r="4" fill="#F59E0B" opacity="0.8" />
+
+    {/* Radar Grid */}
+    <circle cx="100" cy="100" r="40" stroke="#F59E0B" strokeWidth="1" opacity="0.15" />
+    <circle cx="100" cy="100" r="80" stroke="#F59E0B" strokeWidth="1" opacity="0.15" />
+    <path d="M100 20 V180 M20 100 H180" stroke="#F59E0B" strokeWidth="1" opacity="0.1" />
+
+    {/* Hover: Radar Sweep and Hidden Anomalies */}
+    <motion.g initial={{ opacity: 0 }} variants={{ hover: { opacity: 1, transition: { duration: 0.3 } } }}>
+      {/* Radar Sweep Cone */}
+      <motion.g animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} style={{ transformOrigin: "100px 100px" }}>
+        <path d="M100 100 L100 20 A80 80 0 0 1 180 100 Z" fill="url(#alert-glow)" opacity="0.6" />
+        <line x1="100" y1="100" x2="100" y2="20" stroke="#F59E0B" strokeWidth="2" />
+      </motion.g>
+
+      {/* Hidden Anomalies (Illuminated by sweep) */}
+      <motion.circle cx="130" cy="60" r="3" fill="#EF4444" animate={{ opacity: [0, 1, 0] }} transition={{ duration: 2, repeat: Infinity, delay: 0.2 }} />
+      <motion.circle cx="60" cy="120" r="4" fill="#EF4444" animate={{ opacity: [0, 1, 0] }} transition={{ duration: 2, repeat: Infinity, delay: 1.2 }} />
+      <motion.circle cx="150" cy="130" r="2" fill="#EF4444" animate={{ opacity: [0, 1, 0] }} transition={{ duration: 2, repeat: Infinity, delay: 0.7 }} />
     </motion.g>
-
-    {/* Ripples */}
-    {[1, 2].map((i) => (
-      <motion.circle
-        key={i}
-        cx="150" cy="40" r="14"
-        stroke="#F59E0B"
-        strokeWidth="1.5"
-        initial={{ opacity: 0, scale: 1 }}
-        variants={{
-          hover: { opacity: [0.8, 0], scale: [1, 2.5], transition: { duration: 1.5, repeat: Infinity, delay: i * 0.5, ease: "easeOut" } }
-        }}
-      />
-    ))}
-
-    {/* Scanning Trace Outline */}
-    <motion.rect 
-      x="40" y="40" width="120" height="80" rx="12" 
-      stroke="#F59E0B" 
-      strokeWidth="2"
-      initial={{ pathLength: 0, opacity: 0 }}
-      variants={{
-        hover: { pathLength: 1, opacity: [0, 1, 0], transition: { duration: 2, repeat: Infinity, ease: "linear" } }
-      }}
-    />
   </svg>
 );
 
 const APIGraphic = () => (
-  <svg className="absolute -bottom-8 -right-8 w-60 h-60 text-violet-500/15 transition-colors duration-500 group-hover:text-violet-500/30 pointer-events-none" viewBox="0 0 200 200" fill="none" stroke="currentColor">
-    {/* Central Core */}
-    <circle cx="100" cy="100" r="25" strokeWidth="2" opacity="0.4" />
-    <circle cx="100" cy="100" r="10" strokeWidth="1" opacity="0.2" />
+  <svg className="absolute -bottom-8 -right-8 w-60 h-60 pointer-events-none" viewBox="0 0 200 200" fill="none">
+    <defs>
+      <filter id="api-glow">
+        <feGaussianBlur stdDeviation="3" result="blur" />
+        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+      </filter>
+    </defs>
 
     {/* Paths */}
-    <path id="path1" d="M 20 40 Q 60 40 100 75" strokeWidth="1.5" opacity="0.3" />
-    <path id="path2" d="M 180 30 Q 140 60 115 85" strokeWidth="1.5" opacity="0.3" />
-    <path id="path3" d="M 30 160 Q 70 140 85 115" strokeWidth="1.5" opacity="0.3" />
-    <path id="path4" d="M 170 170 Q 140 140 120 115" strokeWidth="1.5" opacity="0.3" />
+    <path id="n1" d="M 20 50 C 60 50, 60 100, 100 100" stroke="#8B5CF6" strokeWidth="1" opacity="0.2" fill="none" />
+    <path id="n2" d="M 180 40 C 140 40, 140 100, 100 100" stroke="#8B5CF6" strokeWidth="1" opacity="0.2" fill="none" />
+    <path id="n3" d="M 40 170 C 60 130, 80 100, 100 100" stroke="#8B5CF6" strokeWidth="1" opacity="0.2" fill="none" />
+    <path id="n4" d="M 170 160 C 130 160, 130 100, 100 100" stroke="#8B5CF6" strokeWidth="1" opacity="0.2" fill="none" />
 
-    {/* Outer Nodes */}
-    <circle cx="20" cy="40" r="6" opacity="0.4" />
-    <circle cx="180" cy="30" r="6" opacity="0.4" />
-    <circle cx="30" cy="160" r="6" opacity="0.4" />
-    <circle cx="170" cy="170" r="6" opacity="0.4" />
+    {/* Continuous Pulsing Outer Nodes */}
+    {[
+      { cx: 20, cy: 50, delay: 0 }, { cx: 180, cy: 40, delay: 0.5 },
+      { cx: 40, cy: 170, delay: 1 }, { cx: 170, cy: 160, delay: 1.5 }
+    ].map((n, i) => (
+      <motion.circle key={i} cx={n.cx} cy={n.cy} r="4" fill="#8B5CF6" opacity="0.5" animate={{ scale: [1, 1.5, 1], opacity: [0.3, 0.8, 0.3] }} transition={{ duration: 2, repeat: Infinity, delay: n.delay }} />
+    ))}
 
-    {/* Traveling Packets */}
-    <motion.circle r="4" fill="#8B5CF6" stroke="none" initial={{ opacity: 0 }} variants={{ hover: { opacity: 1 } }}>
-      <animateMotion dur="2s" repeatCount="indefinite" begin="0s">
-        <mpath href="#path1" />
-      </animateMotion>
-    </motion.circle>
-    <motion.circle r="4" fill="#8B5CF6" stroke="none" initial={{ opacity: 0 }} variants={{ hover: { opacity: 1 } }}>
-      <animateMotion dur="2.5s" repeatCount="indefinite" begin="0.5s">
-        <mpath href="#path2" />
-      </animateMotion>
-    </motion.circle>
-    <motion.circle r="4" fill="#8B5CF6" stroke="none" initial={{ opacity: 0 }} variants={{ hover: { opacity: 1 } }}>
-      <animateMotion dur="1.8s" repeatCount="indefinite" begin="1s">
-        <mpath href="#path3" />
-      </animateMotion>
-    </motion.circle>
-    <motion.circle r="4" fill="#8B5CF6" stroke="none" initial={{ opacity: 0 }} variants={{ hover: { opacity: 1 } }}>
-      <animateMotion dur="2.2s" repeatCount="indefinite" begin="0.2s">
-        <mpath href="#path4" />
-      </animateMotion>
-    </motion.circle>
-    
-    {/* Central Core Pulse */}
-    <motion.circle 
-      cx="100" cy="100" r="25" 
-      stroke="#8B5CF6" strokeWidth="2"
-      initial={{ scale: 1, opacity: 0 }}
-      variants={{
-        hover: { scale: 1.2, opacity: [0, 0.5, 0], transition: { duration: 1, repeat: Infinity } }
-      }}
-    />
+    {/* Hover: Data Surge */}
+    <motion.g initial={{ opacity: 0 }} variants={{ hover: { opacity: 1 } }}>
+      {/* Central Core flare */}
+      <motion.circle cx="100" cy="100" r="12" fill="#8B5CF6" filter="url(#api-glow)" animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 0.5, repeat: Infinity }} />
+      
+      {/* Rapid Packets using dash trick */}
+      <motion.path d="M 20 50 C 60 50, 60 100, 100 100" stroke="#D8B4FE" strokeWidth="3" strokeLinecap="round" filter="url(#api-glow)" fill="none" strokeDasharray="5 150" variants={{ hover: { strokeDashoffset: [155, 0], transition: { duration: 1, repeat: Infinity, ease: "linear" } } }} />
+      <motion.path d="M 180 40 C 140 40, 140 100, 100 100" stroke="#D8B4FE" strokeWidth="3" strokeLinecap="round" filter="url(#api-glow)" fill="none" strokeDasharray="5 150" variants={{ hover: { strokeDashoffset: [155, 0], transition: { duration: 1.2, repeat: Infinity, ease: "linear", delay: 0.3 } } }} />
+      <motion.path d="M 40 170 C 60 130, 80 100, 100 100" stroke="#D8B4FE" strokeWidth="3" strokeLinecap="round" filter="url(#api-glow)" fill="none" strokeDasharray="5 150" variants={{ hover: { strokeDashoffset: [155, 0], transition: { duration: 0.9, repeat: Infinity, ease: "linear", delay: 0.6 } } }} />
+    </motion.g>
+
+    {/* Static Central Core */}
+    <circle cx="100" cy="100" r="15" stroke="#8B5CF6" strokeWidth="2" opacity="0.3" fill="none" />
   </svg>
 );
 
-const MultiChannelGraphic = () => (
-  <svg className="absolute -bottom-8 -right-8 w-60 h-60 text-emerald-500/15 transition-colors duration-500 group-hover:text-emerald-500/30 pointer-events-none" viewBox="0 0 200 200" fill="none" stroke="currentColor">
-    {/* Isometric Grid Base */}
-    <g transform="translate(100, 120) scale(1, 0.5) rotate(45)">
-      <rect x="-40" y="-40" width="80" height="80" strokeWidth="2" opacity="0.3" />
-      <path d="M-40 0 H40 M0 -40 V40" strokeWidth="1" opacity="0.2" />
-      
-      {/* Target Center */}
-      <rect x="-10" y="-10" width="20" height="20" strokeWidth="2" opacity="0.5" fill="rgba(16, 185, 129, 0.1)" stroke="none" />
-    </g>
-
-    {/* Dropping Elements */}
-    {/* Element 1 (Left) */}
-    <motion.g
-      initial={{ opacity: 0, y: 0, x: -30 }}
-      variants={{
-        hover: { opacity: 1, y: 30, x: 0, transition: { duration: 0.6, ease: "easeOut" } }
-      }}
-    >
-      <rect x="70" y="60" width="20" height="20" rx="4" strokeWidth="2" opacity="0.6" fill="rgba(16, 185, 129, 0.1)" />
-    </motion.g>
-
-    {/* Element 2 (Right) */}
-    <motion.g
-      initial={{ opacity: 0, y: -20, x: 40 }}
-      variants={{
-        hover: { opacity: 1, y: 15, x: -10, transition: { duration: 0.6, delay: 0.2, ease: "easeOut" } }
-      }}
-    >
-      <circle cx="130" cy="50" r="10" strokeWidth="2" opacity="0.6" fill="rgba(16, 185, 129, 0.1)" />
-    </motion.g>
-
-    {/* Element 3 (Top) */}
-    <motion.g
-      initial={{ opacity: 0, y: -40 }}
-      variants={{
-        hover: { opacity: 1, y: -10, transition: { duration: 0.6, delay: 0.4, ease: "easeOut" } }
-      }}
-    >
-      <polygon points="100,30 110,45 90,45" strokeWidth="2" opacity="0.6" fill="rgba(16, 185, 129, 0.1)" />
-    </motion.g>
-
-    {/* Unified Beam */}
-    <motion.path 
-      d="M100 120 V20" 
-      stroke="url(#emerald-beam)" 
-      strokeWidth="6"
-      strokeLinecap="round"
-      initial={{ opacity: 0, pathLength: 0 }}
-      variants={{
-        hover: { opacity: 1, pathLength: 1, transition: { delay: 0.8, duration: 0.5 } }
-      }}
-    />
-    
+const PromoGraphic = () => (
+  <svg className="absolute -bottom-8 -right-8 w-64 h-64 pointer-events-none" viewBox="0 0 200 200" fill="none">
     <defs>
-      <linearGradient id="emerald-beam" x1="0" y1="1" x2="0" y2="0">
-        <stop offset="0%" stopColor="#10B981" stopOpacity="0.8" />
+      <linearGradient id="promo-grad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#10B981" stopOpacity="0.5" />
         <stop offset="100%" stopColor="#10B981" stopOpacity="0" />
       </linearGradient>
+      <filter id="promo-glow">
+        <feGaussianBlur stdDeviation="4" result="blur" />
+        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+      </filter>
     </defs>
+
+    {/* Grid */}
+    <path d="M30 140 H170 M30 100 H170 M30 60 H170" stroke="#10B981" strokeWidth="1" opacity="0.1" strokeDasharray="4 4" fill="none" />
+    
+    {/* Continuous Baseline */}
+    <motion.path d="M30 130 L60 120 L90 125 L120 115 L150 120 L170 125" stroke="#10B981" strokeWidth="2" opacity="0.3" animate={{ opacity: [0.2, 0.4, 0.2] }} transition={{ duration: 3, repeat: Infinity }} fill="none" />
+
+    {/* Hover: Massive Spike */}
+    <motion.g initial={{ opacity: 0 }} variants={{ hover: { opacity: 1 } }}>
+      {/* Promo Badge dropping in */}
+      <motion.g variants={{ hover: { y: [-20, 0], opacity: [0, 1], transition: { type: "spring", bounce: 0.5 } } }}>
+        <rect x="90" y="30" width="40" height="16" rx="4" fill="rgba(15, 23, 42, 0.9)" stroke="#10B981" strokeWidth="1" />
+        <text x="110" y="41" fill="#10B981" fontSize="8" fontWeight="bold" textAnchor="middle">PROMO</text>
+        <line x1="110" y1="46" x2="110" y2="60" stroke="#10B981" strokeWidth="1" strokeDasharray="2 2" />
+      </motion.g>
+
+      {/* Spiking Graph Path */}
+      <motion.path 
+        d="M30 130 L60 120 L90 125 L110 50 L130 90 L150 70 L170 90" 
+        stroke="#10B981" strokeWidth="3" filter="url(#promo-glow)" strokeLinecap="round" strokeLinejoin="round" fill="none"
+        initial={{ pathLength: 0 }}
+        variants={{ hover: { pathLength: 1, transition: { duration: 0.8, ease: "easeOut", delay: 0.2 } } }}
+      />
+      {/* Spiking Graph Area */}
+      <motion.path 
+        d="M30 130 L60 120 L90 125 L110 50 L130 90 L150 70 L170 90 V150 H30 Z" 
+        fill="url(#promo-grad)"
+        initial={{ opacity: 0 }}
+        variants={{ hover: { opacity: 1, transition: { duration: 0.4, delay: 0.6 } } }}
+      />
+
+      {/* Floating Profit Particles */}
+      {[1, 2, 3].map((i) => (
+        <motion.text key={i} x={100 + i*15} y="40" fill="#34D399" fontSize="10" fontWeight="bold"
+          initial={{ opacity: 0, y: 0 }}
+          variants={{ hover: { opacity: [0, 1, 0], y: -20, transition: { duration: 1.5, repeat: Infinity, delay: 0.5 + i*0.2 } } }}
+        >$</motion.text>
+      ))}
+    </motion.g>
   </svg>
 );
 
 const SecurityGraphic = () => (
-  <svg className="absolute -bottom-6 -right-6 w-60 h-60 text-slate-400/20 transition-colors duration-500 group-hover:text-slate-400/40 pointer-events-none" viewBox="0 0 200 200" fill="none" stroke="currentColor">
-    {/* Background Trace */}
-    <path d="M70 120 Q100 70 130 120" strokeWidth="2" strokeLinecap="round" opacity="0.2" />
-    <path d="M60 110 C80 50 120 50 140 110" strokeWidth="2" strokeLinecap="round" opacity="0.2" />
-    <path d="M80 130 Q100 90 120 130" strokeWidth="2" strokeLinecap="round" opacity="0.2" />
-    
-    {/* Redrawing on hover */}
-    <g stroke="#64748B" strokeWidth="2" strokeLinecap="round">
-       <motion.path d="M70 120 Q100 70 130 120" initial={{ pathLength: 0, opacity: 0 }} variants={{ hover: { pathLength: 1, opacity: 1, transition: { duration: 1 } } }} />
-       <motion.path d="M60 110 C80 50 120 50 140 110" initial={{ pathLength: 0, opacity: 0 }} variants={{ hover: { pathLength: 1, opacity: 1, transition: { duration: 1.2, delay: 0.2 } } }} />
-       <motion.path d="M80 130 Q100 90 120 130" initial={{ pathLength: 0, opacity: 0 }} variants={{ hover: { pathLength: 1, opacity: 1, transition: { duration: 0.8, delay: 0.4 } } }} />
-    </g>
-
-    {/* Verified Shield */}
-    <motion.g
-      initial={{ opacity: 0, scale: 0 }}
-      variants={{ hover: { opacity: 1, scale: 1, transition: { delay: 1.5, type: "spring" } } }}
-    >
-      <path d="M140 140 L140 150 C140 160 130 170 120 175 C110 170 100 160 100 150 L100 140 L120 132 Z" fill="#0f172a" stroke="#10B981" strokeWidth="2" />
-      <path d="M110 155 L116 161 L130 147" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  <svg className="absolute -bottom-6 -right-6 w-60 h-60 pointer-events-none" viewBox="0 0 200 200" fill="none">
+    {/* Continuous Rotating Rings */}
+    <motion.g animate={{ rotate: 360 }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} style={{ transformOrigin: "100px 100px" }}>
+      <circle cx="100" cy="100" r="50" stroke="#64748B" strokeWidth="1" strokeDasharray="5 15" opacity="0.3" fill="none" />
+      <circle cx="100" cy="100" r="50" stroke="#64748B" strokeWidth="2" strokeDasharray="1 40" opacity="0.5" fill="none" />
     </motion.g>
-    
-    {/* Laser Scan */}
-    <motion.line 
-      x1="50" y1="50" x2="150" y2="50" 
-      stroke="#3B82F6" strokeWidth="2" opacity="0.8"
-      initial={{ opacity: 0, y: 0 }}
-      variants={{
-        hover: { opacity: [0, 1, 1, 0], y: [0, 100], transition: { duration: 2, repeat: Infinity, ease: "linear" } }
-      }}
-    />
+    <motion.g animate={{ rotate: -360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} style={{ transformOrigin: "100px 100px" }}>
+      <circle cx="100" cy="100" r="65" stroke="#64748B" strokeWidth="1" strokeDasharray="10 10" opacity="0.2" fill="none" />
+      <circle cx="100" cy="100" r="65" stroke="#64748B" strokeWidth="3" strokeDasharray="2 60" opacity="0.4" fill="none" />
+    </motion.g>
+
+    {/* Hover: Padlock Assembly and Laser */}
+    <motion.g initial={{ opacity: 0 }} variants={{ hover: { opacity: 1 } }}>
+      {/* Assembling Padlock */}
+      <motion.g variants={{ hover: { scale: [0.5, 1], opacity: [0, 1], transition: { type: "spring", bounce: 0.6 } } }}>
+        <rect x="80" y="100" width="40" height="30" rx="4" fill="rgba(15, 23, 42, 0.8)" stroke="#cbd5e1" strokeWidth="2" />
+        <path d="M85 100 V85 A15 15 0 0 1 115 85 V100" stroke="#cbd5e1" strokeWidth="2" strokeLinecap="round" fill="none" />
+        <circle cx="100" cy="115" r="4" fill="#cbd5e1" />
+      </motion.g>
+
+      {/* Aggressive Blue Laser */}
+      <motion.rect x="70" y="75" width="60" height="2" fill="#3B82F6" style={{ filter: "drop-shadow(0 0 8px #3B82F6)" }}
+        initial={{ y: 0, opacity: 0 }}
+        variants={{ hover: { y: [0, 60, 0], opacity: [0, 1, 1, 0], transition: { duration: 1.5, repeat: Infinity, delay: 0.5, ease: "linear" } } }}
+      />
+    </motion.g>
   </svg>
 );
 
 const ExportsGraphic = () => (
-  <svg className="absolute -bottom-6 -right-6 w-56 h-56 text-pink-500/15 transition-colors duration-500 group-hover:text-pink-500/30 pointer-events-none" viewBox="0 0 200 200" fill="none" stroke="currentColor">
-    {/* Spreadsheet Frame */}
-    <rect x="30" y="40" width="140" height="100" rx="4" strokeWidth="2" opacity="0.4" />
-    
-    {/* Grid lines */}
-    <path d="M30 60 H170 M30 80 H170 M30 100 H170 M30 120 H170" strokeWidth="1" opacity="0.2" />
-    <path d="M70 40 V140 M110 40 V140 M150 40 V140" strokeWidth="1" opacity="0.2" />
+  <svg className="absolute -bottom-6 -right-6 w-60 h-60 pointer-events-none" viewBox="0 0 200 200" fill="none">
+    {/* Continuous Drifting Chaos */}
+    <motion.g initial={{ opacity: 1 }} variants={{ hover: { opacity: 0, transition: { duration: 0.2 } } }}>
+      {[
+        {x: 40, y: 50}, {x: 120, y: 70}, {x: 60, y: 130}, {x: 140, y: 110}, {x: 80, y: 80}
+      ].map((p, i) => (
+        <motion.rect key={i} x={p.x} y={p.y} width="20" height="10" rx="2" fill="#EC4899" opacity="0.3" animate={{ y: [p.y, p.y - 10, p.y], x: [p.x, p.x + 10, p.x] }} transition={{ duration: 4 + i, repeat: Infinity, ease: "easeInOut" }} />
+      ))}
+    </motion.g>
 
-    {/* Scanning Highlights (Sequential) */}
-    {[60, 80, 100, 120].map((y, i) => (
-      <motion.rect
-        key={y}
-        x="30" y={y - 20} width="140" height="20"
-        fill="#EC4899"
-        stroke="none"
-        initial={{ opacity: 0 }}
-        variants={{
-          hover: { opacity: [0, 0.3, 0], transition: { duration: 0.6, delay: i * 0.2 } }
-        }}
-      />
-    ))}
+    {/* Hover: Organized Cascade */}
+    <motion.g initial={{ opacity: 0 }} variants={{ hover: { opacity: 1 } }}>
+      <g stroke="#EC4899" strokeWidth="2" opacity="0.5" fill="none">
+        <rect x="50" y="60" width="100" height="80" rx="4" />
+        <path d="M50 80 H150 M50 100 H150 M50 120 H150" strokeWidth="1" />
+        <path d="M83 60 V140 M116 60 V140" strokeWidth="1" />
+      </g>
+      
+      {/* Snapping data blocks */}
+      {[0, 1, 2, 3].map((row) => (
+        <motion.g key={row} initial={{ x: -20, opacity: 0 }} variants={{ hover: { x: 0, opacity: 1, transition: { delay: 0.2 + row * 0.1, type: "spring" } } }}>
+          <rect x="55" y={65 + row*20} width="20" height="10" fill="#EC4899" opacity="0.8" />
+          <rect x="88" y={65 + row*20} width="20" height="10" fill="#EC4899" opacity="0.4" />
+        </motion.g>
+      ))}
 
-    {/* Download Icon overlaying */}
-    <motion.g
-      initial={{ opacity: 0, y: -20 }}
-      variants={{
-        hover: { opacity: 1, y: 0, transition: { delay: 1.0, duration: 0.5, type: "spring" } }
-      }}
-    >
-      <circle cx="100" cy="90" r="30" fill="#0f172a" stroke="#EC4899" strokeWidth="2" />
-      <path d="M100 75 V100 M90 90 L100 100 L110 90" stroke="#EC4899" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M85 105 H115" stroke="#EC4899" strokeWidth="3" strokeLinecap="round" />
+      {/* Compressing Download Arrow */}
+      <motion.g initial={{ y: -50, opacity: 0 }} variants={{ hover: { y: 0, opacity: 1, transition: { delay: 0.8, type: "spring", bounce: 0.6 } } }}>
+        <circle cx="100" cy="100" r="25" fill="rgba(15, 23, 42, 0.9)" stroke="#EC4899" strokeWidth="2" style={{ filter: "drop-shadow(0 0 10px rgba(236,72,153,0.3))" }} />
+        <path d="M100 85 V110 M90 100 L100 110 L110 100" fill="none" stroke="#EC4899" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+      </motion.g>
     </motion.g>
   </svg>
 );
@@ -303,7 +270,7 @@ const SVGs: Record<string, React.FC> = {
   dashboard: DashboardGraphic,
   alerts: AlertsGraphic,
   api: APIGraphic,
-  multichannel: MultiChannelGraphic,
+  promo: PromoGraphic,
   compliance: SecurityGraphic,
   exports: ExportsGraphic,
 };
@@ -342,10 +309,10 @@ const cards = [
     border: 'border-violet-500/15',
   },
   {
-    id: 'multichannel',
-    icon: Globe,
-    title: 'Multi-channel aggregation',
-    desc: 'Shopify, Amazon, WooCommerce, Flipkart — demand unified across every channel.',
+    id: 'promo',
+    icon: BadgePercent,
+    title: 'Promotion intelligence',
+    desc: 'Plan margin-safe promotions. See exactly how discounts impact your bottom line before you launch.',
     size: 'small',
     gradient: 'from-emerald-500/10 to-green-500/5',
     iconColor: 'text-emerald-500',
