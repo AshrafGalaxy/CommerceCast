@@ -84,7 +84,13 @@ const AlertsGraphic = () => (
 
     {/* Continuous breathing center */}
     <motion.circle cx="100" cy="100" r="30" fill="url(#alert-glow)" animate={{ scale: [1, 1.5, 1], opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }} />
-    <circle cx="100" cy="100" r="4" fill="#F59E0B" opacity="0.8" />
+    
+    {/* Bell Icon in center */}
+    <motion.g stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"
+       animate={{ rotate: [0, -10, 10, -10, 10, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", repeatDelay: 1 }} style={{ transformOrigin: "100px 100px" }}>
+      <path d="M100 85 C95 85 92 88 92 93 V105 C92 108 90 110 88 112 H112 C110 110 108 108 108 105 V93 C108 88 105 85 100 85 Z" />
+      <path d="M97 115 C97 116.5 98.5 118 100 118 C101.5 118 103 116.5 103 115" />
+    </motion.g>
 
     {/* Radar Grid */}
     <circle cx="100" cy="100" r="40" stroke="#F59E0B" strokeWidth="1" opacity="0.15" />
@@ -99,10 +105,10 @@ const AlertsGraphic = () => (
         <line x1="100" y1="100" x2="100" y2="20" stroke="#F59E0B" strokeWidth="2" />
       </motion.g>
 
-      {/* Hidden Anomalies (Illuminated by sweep) */}
-      <motion.circle cx="130" cy="60" r="3" fill="#EF4444" animate={{ opacity: [0, 1, 0] }} transition={{ duration: 2, repeat: Infinity, delay: 0.2 }} />
-      <motion.circle cx="60" cy="120" r="4" fill="#EF4444" animate={{ opacity: [0, 1, 0] }} transition={{ duration: 2, repeat: Infinity, delay: 1.2 }} />
-      <motion.circle cx="150" cy="130" r="2" fill="#EF4444" animate={{ opacity: [0, 1, 0] }} transition={{ duration: 2, repeat: Infinity, delay: 0.7 }} />
+      {/* Hidden Anomalies (Illuminated by sweep) with trailing pulse */}
+      <motion.circle cx="130" cy="60" r="4" fill="#EF4444" animate={{ opacity: [0, 1, 0], scale: [1, 2, 1] }} transition={{ duration: 2, repeat: Infinity, delay: 0.25 }} />
+      <motion.circle cx="60" cy="120" r="5" fill="#EF4444" animate={{ opacity: [0, 1, 0], scale: [1, 2, 1] }} transition={{ duration: 2, repeat: Infinity, delay: 1.25 }} />
+      <motion.circle cx="150" cy="130" r="3" fill="#EF4444" animate={{ opacity: [0, 1, 0], scale: [1, 2, 1] }} transition={{ duration: 2, repeat: Infinity, delay: 0.75 }} />
     </motion.g>
   </svg>
 );
@@ -284,9 +290,7 @@ const cards = [
     title: 'Unified dashboard',
     desc: 'Every KPI your ops team needs — forecasts, inventory health, and promo performance — in one clean view.',
     size: 'large',
-    gradient: 'from-blue-500/10 to-indigo-500/5',
     iconColor: 'text-blue-500',
-    border: 'border-blue-500/15',
   },
   {
     id: 'alerts',
@@ -294,9 +298,7 @@ const cards = [
     title: 'Smart alerts',
     desc: 'Get notified before stockouts happen, not after.',
     size: 'small',
-    gradient: 'from-amber-500/10 to-orange-500/5',
     iconColor: 'text-amber-500',
-    border: 'border-amber-500/15',
   },
   {
     id: 'api',
@@ -304,9 +306,7 @@ const cards = [
     title: 'REST API & webhooks',
     desc: 'Plug CommerceCast into your stack via our OpenAPI-compliant REST API.',
     size: 'small',
-    gradient: 'from-violet-500/10 to-purple-500/5',
     iconColor: 'text-violet-500',
-    border: 'border-violet-500/15',
   },
   {
     id: 'promo',
@@ -314,9 +314,7 @@ const cards = [
     title: 'Promotion intelligence',
     desc: 'Plan margin-safe promotions. See exactly how discounts impact your bottom line before you launch.',
     size: 'small',
-    gradient: 'from-emerald-500/10 to-green-500/5',
     iconColor: 'text-emerald-500',
-    border: 'border-emerald-500/15',
   },
   {
     id: 'compliance',
@@ -324,9 +322,7 @@ const cards = [
     title: 'Bank-grade security',
     desc: 'SOC 2 Type II certified. Enterprise-grade encryption out of the box. Your data is yours.',
     size: 'small',
-    gradient: 'from-slate-500/10 to-slate-600/5',
     iconColor: 'text-slate-400',
-    border: 'border-slate-500/15',
   },
   {
     id: 'exports',
@@ -334,9 +330,7 @@ const cards = [
     title: 'Custom exports',
     desc: 'Export your forecasts to CSV, Excel, or connect directly to your BI tools.',
     size: 'small',
-    gradient: 'from-pink-500/10 to-rose-500/5',
     iconColor: 'text-pink-500',
-    border: 'border-pink-500/15',
   },
 ] as const;
 
@@ -377,7 +371,7 @@ function BentoCard({ card, index }: { card: (typeof cards)[number], index: numbe
         hover: { y: -3, transition: { duration: 0.2 } }
       }}
       className={cn(
-        `group relative flex flex-col justify-between p-6 rounded-2xl border bg-gradient-to-br ${card.gradient} ${card.border} overflow-hidden cursor-default transition-shadow hover:shadow-xl hover:shadow-${card.iconColor.split('-')[1]}-500/5`,
+        `group relative flex flex-col justify-between p-6 rounded-2xl border border-border/40 bg-gradient-to-br from-background to-muted/20 overflow-hidden cursor-default transition-shadow hover:shadow-lg hover:shadow-background/50`,
         sizeClasses[card.size as CardSize]
       )}
     >
@@ -385,7 +379,7 @@ function BentoCard({ card, index }: { card: (typeof cards)[number], index: numbe
       <div 
         className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
         style={{
-          background: `radial-gradient(400px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255,255,255,0.06), transparent 40%)`
+          background: `radial-gradient(400px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255,255,255,0.04), transparent 40%)`
         }}
       />
 
@@ -397,13 +391,16 @@ function BentoCard({ card, index }: { card: (typeof cards)[number], index: numbe
         {Graphic && <Graphic />}
       </div>
 
+      {/* 3.5 Text Backdrop Mask for high SVG contrast */}
+      <div className="absolute inset-0 z-10 bg-gradient-to-t from-background/90 via-background/40 to-transparent pointer-events-none opacity-80" />
+
       {/* 4. Content */}
-      <div className="relative z-20 pointer-events-none">
-        <div className={`w-10 h-10 rounded-xl flex items-center justify-center bg-background/50 border border-border/40 mb-4 group-hover:scale-110 group-hover:bg-background/80 transition-all duration-300 backdrop-blur-sm shadow-sm`}>
-          <card.icon className={`w-5 h-5 ${card.iconColor}`} />
+      <div className="relative z-20 pointer-events-none mt-auto">
+        <div className={`w-10 h-10 rounded-xl flex items-center justify-center bg-background border border-border/40 mb-4 group-hover:scale-110 group-hover:bg-muted/50 transition-all duration-300 shadow-sm`}>
+          <card.icon className={`w-5 h-5 ${card.iconColor} drop-shadow-sm`} />
         </div>
-        <h3 className="text-base font-bold font-headline mb-2 text-foreground group-hover:text-primary transition-colors">{card.title}</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed max-w-[90%]">{card.desc}</p>
+        <h3 className="text-base font-bold font-headline mb-2 text-foreground transition-colors drop-shadow-sm">{card.title}</h3>
+        <p className="text-sm text-muted-foreground leading-relaxed max-w-[90%] drop-shadow-sm">{card.desc}</p>
       </div>
     </motion.div>
   );

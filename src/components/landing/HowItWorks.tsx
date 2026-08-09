@@ -76,9 +76,9 @@ export function HowItWorks() {
   const opacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
 
   return (
-    <section className="relative w-full py-24 md:py-32 bg-slate-950 overflow-hidden text-slate-50">
+    <section id="how-it-works" className="relative w-full py-24 md:py-32 bg-background overflow-hidden text-foreground">
       {/* Background dots for tech vibe */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[length:24px_24px]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.05)_1px,transparent_1px)] dark:bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[length:24px_24px]" />
       
       <div className="container px-4 relative z-10">
         {/* Header */}
@@ -93,7 +93,7 @@ export function HowItWorks() {
             <Zap className="w-3.5 h-3.5" />
             Live Processing
           </div>
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tighter font-headline text-white drop-shadow-lg">
+          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tighter font-headline text-foreground drop-shadow-lg">
             From data to decisions in minutes
           </h2>
         </motion.div>
