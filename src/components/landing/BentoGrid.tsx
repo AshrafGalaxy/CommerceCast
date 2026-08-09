@@ -102,7 +102,6 @@ const AlertsGraphic = () => (
       {/* Radar Sweep Cone */}
       <motion.g animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} style={{ transformOrigin: "100px 100px" }}>
         <path d="M100 100 L100 20 A80 80 0 0 1 180 100 Z" fill="url(#alert-glow)" opacity="0.6" />
-        <line x1="100" y1="100" x2="100" y2="20" stroke="#F59E0B" strokeWidth="2" />
       </motion.g>
 
       {/* Hidden Anomalies (Illuminated by sweep) with trailing pulse */}
