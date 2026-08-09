@@ -383,7 +383,7 @@ const sizeClasses: Record<CardSize, string> = {
 
 // --- BENTO CARD COMPONENT (With Mouse Spotlight) ---
 
-function BentoCard({ card, index }: { card: typeof cards[0], index: number }) {
+function BentoCard({ card, index }: { card: (typeof cards)[number], index: number }) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const cardRef = useRef<HTMLDivElement>(null);
   const Graphic = SVGs[card.id];
