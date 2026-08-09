@@ -165,41 +165,66 @@ const PipelineSVG = ({ pathLength, opacity }: { pathLength: any, opacity: any })
       </radialGradient>
     </defs>
 
-    {/* Dead track (unlit) */}
-    <path d="M 120 140 H 980" stroke="currentColor" className="text-border/40" strokeWidth="3" strokeLinecap="round" />
+    {/* === MINUTE / RAW GRID CONNECTIVITY === */}
+    {/* Micro-traces parallel to main flow */}
+    <path d="M 120 132 H 980" stroke="currentColor" className="text-border/20" strokeWidth="1" />
+    <path d="M 120 136 H 980" stroke="currentColor" className="text-border/30" strokeWidth="1" />
+    
+    <path d="M 120 144 H 980" stroke="currentColor" className="text-border/30" strokeWidth="1" />
+    <path d="M 120 148 H 980" stroke="currentColor" className="text-border/20" strokeWidth="1" />
 
-    {/* Scroll-driven illuminated track */}
+    {/* Dead track (unlit center) */}
+    <path d="M 120 140 H 980" stroke="currentColor" className="text-border/40" strokeWidth="2" strokeLinecap="round" />
+
+    {/* Scroll-driven illuminated main track */}
     <motion.path
       d="M 120 140 H 980"
       stroke="url(#track-grad)"
-      strokeWidth="3.5"
+      strokeWidth="2"
       strokeLinecap="round"
       style={{ pathLength, opacity }}
       filter="url(#hw-glow)"
     />
 
+    {/* Scroll-driven illuminated micro-traces */}
+    <motion.path
+      d="M 120 136 H 980"
+      stroke="url(#track-grad)"
+      strokeWidth="1"
+      strokeDasharray="4 8"
+      style={{ pathLength, opacity }}
+      opacity="0.6"
+    />
+    <motion.path
+      d="M 120 144 H 980"
+      stroke="url(#track-grad)"
+      strokeWidth="1"
+      strokeDasharray="4 8"
+      style={{ pathLength, opacity }}
+      opacity="0.6"
+    />
+
     {/* === DATA PACKETS === */}
-    {/* Packet 1 → 2 (blue) */}
-    <path d="M 120 140 H 550" stroke="#3B82F6" strokeWidth="4" strokeLinecap="round" strokeDasharray="14 600" filter="url(#hw-glow-sm)">
-      <animate attributeName="stroke-dashoffset" from="614" to="0" dur="2s" begin="0s" repeatCount="indefinite" />
+    {/* Packet 1 → 2 (blue) intricate stream */}
+    <path d="M 120 140 H 550" stroke="#3B82F6" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 2 12 4 4 600" filter="url(#hw-glow-sm)">
+      <animate attributeName="stroke-dashoffset" from="626" to="0" dur="2s" begin="0s" repeatCount="indefinite" />
     </path>
-    {/* Packet 1 → 2 trailing (faint) */}
-    <path d="M 120 140 H 550" stroke="#3B82F6" strokeWidth="4" strokeLinecap="round" strokeDasharray="14 600" opacity="0.3" filter="url(#hw-glow-sm)">
-      <animate attributeName="stroke-dashoffset" from="614" to="0" dur="2s" begin="0.4s" repeatCount="indefinite" />
+    <path d="M 120 136 H 550" stroke="#3B82F6" strokeWidth="1" strokeLinecap="round" strokeDasharray="2 4 6 600" opacity="0.6" filter="url(#hw-glow-sm)">
+      <animate attributeName="stroke-dashoffset" from="612" to="0" dur="1.8s" begin="0.2s" repeatCount="indefinite" />
     </path>
 
-    {/* Packet 2 → 3 (violet) */}
-    <path d="M 550 140 H 980" stroke="#8B5CF6" strokeWidth="4" strokeLinecap="round" strokeDasharray="14 600" filter="url(#hw-glow-sm)">
-      <animate attributeName="stroke-dashoffset" from="614" to="0" dur="2s" begin="1s" repeatCount="indefinite" />
+    {/* Packet 2 → 3 (violet to emerald) intricate stream */}
+    <path d="M 550 140 H 980" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 2 12 4 4 600" filter="url(#hw-glow-sm)">
+      <animate attributeName="stroke-dashoffset" from="626" to="0" dur="2s" begin="1s" repeatCount="indefinite" />
     </path>
-    <path d="M 550 140 H 980" stroke="#8B5CF6" strokeWidth="4" strokeLinecap="round" strokeDasharray="14 600" opacity="0.3" filter="url(#hw-glow-sm)">
-      <animate attributeName="stroke-dashoffset" from="614" to="0" dur="2s" begin="1.4s" repeatCount="indefinite" />
+    <path d="M 550 144 H 980" stroke="#8B5CF6" strokeWidth="1" strokeLinecap="round" strokeDasharray="2 4 6 600" opacity="0.6" filter="url(#hw-glow-sm)">
+      <animate attributeName="stroke-dashoffset" from="612" to="0" dur="1.8s" begin="1.2s" repeatCount="indefinite" />
     </path>
 
     {/* === CONNECTOR VERTICALS (nodes up to cards) === */}
-    <path d="M 120 140 V 80" stroke="#3B82F6" strokeWidth="1.5" strokeDasharray="3 5" opacity="0.4" />
-    <path d="M 550 140 V 80" stroke="#8B5CF6" strokeWidth="1.5" strokeDasharray="3 5" opacity="0.4" />
-    <path d="M 980 140 V 80" stroke="#10B981" strokeWidth="1.5" strokeDasharray="3 5" opacity="0.4" />
+    <path d="M 120 140 V 80" stroke="#3B82F6" strokeWidth="1" strokeDasharray="2 4" opacity="0.6" />
+    <path d="M 550 140 V 80" stroke="#8B5CF6" strokeWidth="1" strokeDasharray="2 4" opacity="0.6" />
+    <path d="M 980 140 V 80" stroke="#10B981" strokeWidth="1" strokeDasharray="2 4" opacity="0.6" />
 
     {/* === NODE 1: INGEST === */}
     <circle cx="120" cy="140" r="44" fill="url(#n1g)" />
@@ -307,8 +332,8 @@ export function HowItWorks() {
 
   return (
     <section id="how-it-works" className="relative w-full py-24 md:py-32 bg-background overflow-hidden text-foreground">
-      {/* Subtle dot grid */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.05)_1px,transparent_1px)] dark:bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[length:28px_28px]" />
+      {/* Minute / Raw Blueprint Grid Background */}
+      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
 
       <div className="w-full max-w-[1300px] mx-auto px-4 md:px-8 relative z-10">
 
@@ -325,14 +350,10 @@ export function HowItWorks() {
             Live Processing
           </div>
           <h2 className="text-3xl md:text-5xl font-extrabold tracking-tighter font-headline text-foreground">
-            From data to decisions
-            <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-violet-500 to-emerald-500">
-              in minutes
-            </span>
+            From data to decisions <span className="text-foreground">in minutes</span>
           </h2>
-          <p className="mt-4 text-muted-foreground text-base max-w-xl mx-auto leading-relaxed">
-            A fully automated, end-to-end intelligence pipeline — from raw data ingestion to actionable forecasts.
+          <p className="mt-3 text-muted-foreground text-base max-w-xl mx-auto leading-relaxed">
+            A fully automated end-to-end intelligence pipeline from raw data ingestion to actionable insights.
           </p>
         </motion.div>
 
