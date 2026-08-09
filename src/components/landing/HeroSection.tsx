@@ -77,18 +77,18 @@ export function HeroSection() {
     restDelta: 0.001
   });
 
-  // 1. Header scroll away [0, 0.3]
-  const headerOpacity = useTransform(smoothProgress, [0, 0.3], [1, 0]);
-  const headerY = useTransform(smoothProgress, [0, 0.3], [0, -150]);
+  // 1. Header scroll away [0, 0.15]
+  const headerOpacity = useTransform(smoothProgress, [0, 0.15], [1, 0]);
+  const headerY = useTransform(smoothProgress, [0, 0.15], [0, -150]);
 
-  // 2. Dashboard scroll up into center [0, 0.3]
-  const dashboardY = useTransform(smoothProgress, [0, 0.3], ["85vh", "10vh"]);
+  // 2. Dashboard scroll up into center [0, 0.15]
+  const dashboardY = useTransform(smoothProgress, [0, 0.15], ["85vh", "10vh"]);
 
-  // 3. Dashboard expansions over [0.3, 0.8]
-  const expandProgress = useTransform(smoothProgress, [0.3, 0.8], [0, 1]);
-  const mockMaskOpacity = useTransform(smoothProgress, [0.3, 0.6], [1, 0]);
-  const rotateX = useTransform(smoothProgress, [0.3, 0.8], ["8deg", "0deg"]);
-  const mockScale = useTransform(smoothProgress, [0.3, 0.8], [0.95, 1]);
+  // 3. Dashboard expansions over [0.15, 0.35]
+  const expandProgress = useTransform(smoothProgress, [0.15, 0.35], [0, 1]);
+  const mockMaskOpacity = useTransform(smoothProgress, [0.15, 0.3], [1, 0]);
+  const rotateX = useTransform(smoothProgress, [0.15, 0.35], ["8deg", "0deg"]);
+  const mockScale = useTransform(smoothProgress, [0.15, 0.35], [0.95, 1]);
 
   useMotionValueEvent(expandProgress, "change", (latest) => {
     if (latest > 0.9 && !isExpanded) setIsExpanded(true);
@@ -114,7 +114,7 @@ export function HeroSection() {
       </div>
 
       {/* SINGLE UNIFIED SCROLLYTELLING CONTAINER */}
-      <section ref={containerRef} className="relative w-full h-[200vh] z-20">
+      <section ref={containerRef} className="relative w-full h-[350vh] z-20">
         
         {/* Sticky viewport frame */}
         <div className="sticky top-0 h-screen w-full flex flex-col items-center overflow-hidden" style={{ perspective: '1200px' }}>

@@ -42,9 +42,9 @@ const CATEGORIES = {
     { name: "Home & Garden", pct: "40%" },
   ],
   sales: [
-    { name: "Apparel", pct: "75%" },
-    { name: "Electronics", pct: "60%" },
-    { name: "Beauty", pct: "45%" },
+    { name: "Electronics", pct: "75%" },
+    { name: "Apparel", pct: "80%" },
+    { name: "Home & Garden", pct: "55%" },
   ],
   aov: [
     { name: "Jewelry", pct: "90%" },
@@ -67,9 +67,7 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
   // New States for "scrollytelling" UI panels
   const [showSidebar, setShowSidebar] = useState(false);
   const [showLoadingOverlay, setShowLoadingOverlay] = useState(false);
-  const [showDataSelection, setShowDataSelection] = useState(false);
-
-  const [cursorState, setCursorState] = useState({ x: 100, y: 400, opacity: 0, scale: 1 });
+  const [cursorState, setCursorState] = useState({ left: "10%", top: "80%", opacity: 0, scale: 1 });
 
   useEffect(() => {
     if (!isExpanded) {
@@ -77,7 +75,7 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
       setShowSidebar(false);
       setShowDataSelection(false);
       setShowLoadingOverlay(false);
-      setCursorState({ x: 100, y: 400, opacity: 0, scale: 1 });
+      setCursorState({ left: "10%", top: "80%", opacity: 0, scale: 1 });
       setActiveKpi('revenue');
       setDateActive(false);
       setFilterActive(false);
@@ -90,7 +88,7 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
     const runSequence = async () => {
       while (isMounted) {
         // Initial setup
-        setCursorState({ x: 100, y: 400, opacity: 0, scale: 1 });
+        setCursorState({ left: "10%", top: "80%", opacity: 0, scale: 1 });
         await new Promise(r => setTimeout(r, 500));
         if (!isMounted) return;
 
@@ -110,7 +108,7 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
         if (!isMounted) return;
 
         // Cursor appears and goes to Date Filter
-        setCursorState({ x: 750, y: 30, opacity: 1, scale: 1 });
+        setCursorState({ left: "75%", top: "8%", opacity: 1, scale: 1 });
         await new Promise(r => setTimeout(r, 800));
         if (!isMounted) return;
         setCursorState(prev => ({ ...prev, scale: 0.8 }));
@@ -123,7 +121,7 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
         if (!isMounted) return;
         
         // Go to Scenario Filter
-        setCursorState({ x: 850, y: 30, opacity: 1, scale: 1 });
+        setCursorState({ left: "85%", top: "8%", opacity: 1, scale: 1 });
         await new Promise(r => setTimeout(r, 800));
         if (!isMounted) return;
         setCursorState(prev => ({ ...prev, scale: 0.8 }));
@@ -136,7 +134,7 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
         if (!isMounted) return;
 
         // Click Sales KPI
-        setCursorState({ x: 350, y: 150, opacity: 1, scale: 1 });
+        setCursorState({ left: "40%", top: "30%", opacity: 1, scale: 1 });
         await new Promise(r => setTimeout(r, 1000));
         if (!isMounted) return;
         setCursorState(prev => ({ ...prev, scale: 0.8 }));
@@ -149,7 +147,7 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
         if (!isMounted) return;
 
         // Hover Graph
-        setCursorState({ x: 600, y: 300, opacity: 1, scale: 1 });
+        setCursorState({ left: "50%", top: "60%", opacity: 1, scale: 1 });
         await new Promise(r => setTimeout(r, 800));
         if (!isMounted) return;
         setShowTooltip(true);
@@ -164,7 +162,7 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
         setDateActive(false);
         setFilterActive(false);
         setShowSidebar(false);
-        setCursorState({ x: 100, y: 400, opacity: 0, scale: 1 });
+        setCursorState({ left: "10%", top: "80%", opacity: 0, scale: 1 });
         
         await new Promise(r => setTimeout(r, 1000));
       }
@@ -184,8 +182,8 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
       {/* Animated Cursor */}
       <motion.div
         animate={{
-          x: cursorState.x,
-          y: cursorState.y,
+          left: cursorState.left,
+          top: cursorState.top,
           opacity: cursorState.opacity,
           scale: cursorState.scale
         }}
@@ -394,17 +392,11 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
         <div className="flex-[1] hidden md:flex rounded-xl border border-border/50 bg-background/50 p-6 shadow-sm flex-col gap-6">
           <span className="text-base font-bold text-foreground">Top Drivers</span>
           <div className="flex flex-col gap-5 mt-2">
-            <AnimatePresence mode="popLayout">
-              {activeCategories.map((item) => (
-                <motion.div 
-                  key={item.name}
-                  layout
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 10 }}
-                  transition={{ duration: 0.4 }}
-                  className="flex flex-col gap-2"
-                >
+            {activeCategories.map((item) => (
+              <div 
+                key={item.name}
+                className="flex flex-col gap-2"
+              >
                   <div className="flex justify-between text-sm font-semibold">
                     <span className="text-muted-foreground">{item.name}</span>
                     <span className="text-foreground">{item.pct}</span>
@@ -417,9 +409,8 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
                       transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
                     />
                   </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -472,19 +463,16 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
       >
         <h4 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">Forecasting</h4>
         
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-3 p-3 rounded-lg bg-indigo-500/10 text-indigo-500 cursor-pointer">
-            <LayoutDashboard className="w-4 h-4" />
-            <span className="text-sm font-semibold">Overview</span>
-          </div>
-          <div className="flex items-center gap-3 p-3 rounded-lg text-muted-foreground hover:bg-muted cursor-pointer transition-colors">
-            <Target className="w-4 h-4" />
-            <span className="text-sm font-medium">Demand Planner</span>
-          </div>
-          <div className="flex items-center gap-3 p-3 rounded-lg text-muted-foreground hover:bg-muted cursor-pointer transition-colors">
-            <Database className="w-4 h-4" />
-            <span className="text-sm font-medium">Inventory Simulator</span>
-          </div>
+        <div className="flex flex-col gap-1.5">
+          <button className="flex items-center gap-2 px-3 py-2.5 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-500 rounded-md font-semibold transition-colors w-full text-left">
+            <LayoutDashboard className="w-4 h-4" /> Overview
+          </button>
+          <button className="flex items-center gap-2 px-3 py-2.5 text-muted-foreground hover:bg-muted/50 hover:text-foreground rounded-md font-medium transition-colors w-full text-left">
+            <TrendingUp className="w-4 h-4" /> Demand Planner
+          </button>
+          <button className="flex items-center gap-2 px-3 py-2.5 text-muted-foreground hover:bg-muted/50 hover:text-foreground rounded-md font-medium transition-colors w-full text-left">
+            <Database className="w-4 h-4" /> Inventory Simulator
+          </button>
         </div>
       </motion.div>
     </div>
