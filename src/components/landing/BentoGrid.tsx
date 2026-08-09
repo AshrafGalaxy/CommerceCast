@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 // --- MASTERCLASS SVG GRAPHICS ---
 
 const DashboardGraphic = () => (
-  <svg className="absolute -bottom-10 -right-10 w-80 h-80 pointer-events-none" viewBox="0 0 200 200" fill="none">
+  <svg className="absolute -top-4 -right-4 w-[18rem] h-[18rem] pointer-events-none" viewBox="0 0 200 200" fill="none">
     <defs>
       <filter id="glass-blur" x="-20%" y="-20%" width="140%" height="140%">
         <feGaussianBlur stdDeviation="4" result="blur" />
@@ -68,7 +68,7 @@ const DashboardGraphic = () => (
 );
 
 const AlertsGraphic = () => (
-  <svg className="absolute -bottom-6 -right-6 w-60 h-60 pointer-events-none" viewBox="0 0 200 200" fill="none">
+  <svg className="absolute -top-2 -right-2 w-60 h-60 pointer-events-none" viewBox="0 0 200 200" fill="none">
     <defs>
       <radialGradient id="alert-glow" cx="50%" cy="50%" r="50%">
         <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.5" />
@@ -111,7 +111,7 @@ const AlertsGraphic = () => (
 );
 
 const APIGraphic = () => (
-  <svg className="absolute -bottom-8 -right-8 w-60 h-60 pointer-events-none" viewBox="0 0 200 200" fill="none">
+  <svg className="absolute -top-4 -right-4 w-60 h-60 pointer-events-none" viewBox="0 0 200 200" fill="none">
     <defs>
       <filter id="api-glow">
         <feGaussianBlur stdDeviation="4" result="blur" />
@@ -152,7 +152,7 @@ const APIGraphic = () => (
 );
 
 const PromoGraphic = () => (
-  <svg className="absolute -bottom-8 -right-8 w-64 h-64 pointer-events-none" viewBox="0 0 200 200" fill="none">
+  <svg className="absolute -top-4 -right-4 w-64 h-64 pointer-events-none" viewBox="0 0 200 200" fill="none">
     <defs>
       <linearGradient id="promo-grad" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stopColor="#10B981" stopOpacity="0.5" />
@@ -202,7 +202,7 @@ const PromoGraphic = () => (
 );
 
 const SecurityGraphic = () => (
-  <svg className="absolute -bottom-6 -right-6 w-60 h-60 pointer-events-none" viewBox="0 0 200 200" fill="none">
+  <svg className="absolute -top-2 -right-2 w-60 h-60 pointer-events-none" viewBox="0 0 200 200" fill="none">
     {/* Concentric Precision Rings */}
     <motion.g animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} style={{ transformOrigin: "100px 100px" }}>
       <circle cx="100" cy="100" r="55" stroke="#64748B" strokeWidth="1.5" strokeDasharray="4 8" opacity="0.4" fill="none" />
@@ -242,7 +242,7 @@ const SecurityGraphic = () => (
 );
 
 const ExportsGraphic = () => (
-  <svg className="absolute -bottom-6 -right-6 w-60 h-60 pointer-events-none" viewBox="0 0 200 200" fill="none">
+  <svg className="absolute -top-2 -right-2 w-60 h-60 pointer-events-none" viewBox="0 0 200 200" fill="none">
     {/* Chaos sorting */}
     <motion.g initial={{ opacity: 1 }} variants={{ hover: { opacity: 0, transition: { duration: 0.3 } } }}>
       {[
@@ -382,7 +382,7 @@ function BentoCard({ card, index }: { card: (typeof cards)[number], index: numbe
         hover: { y: -3, transition: { duration: 0.2 } }
       }}
       className={cn(
-        `group relative flex flex-col justify-between p-6 rounded-2xl border border-border/80 bg-card text-card-foreground overflow-hidden cursor-default transition-shadow hover:shadow-lg hover:border-border`,
+        `group relative flex flex-col justify-start p-8 rounded-2xl border border-border/80 bg-card text-card-foreground overflow-hidden cursor-default transition-shadow hover:shadow-lg hover:border-border`,
         sizeClasses[card.size as CardSize]
       )}
     >
@@ -397,21 +397,18 @@ function BentoCard({ card, index }: { card: (typeof cards)[number], index: numbe
       {/* 2. Glassmorphic Noise Overlay */}
       <div className="absolute inset-0 z-0 opacity-[0.03] mix-blend-overlay pointer-events-none" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }} />
 
-      {/* 3. Feature SVG Graphic (Merger Graphic) */}
+      {/* 3. Feature SVG Graphic */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         {Graphic && <Graphic />}
       </div>
 
-      {/* 3.5 Text Backdrop Mask for high SVG contrast */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-t from-background/90 via-background/40 to-transparent pointer-events-none opacity-80" />
-
-      {/* 4. Content */}
-      <div className="relative z-20 pointer-events-none mt-auto">
+      {/* 4. Content (Top Left aligned, limited width to not overlap SVGs) */}
+      <div className="relative z-20 pointer-events-none max-w-[60%]">
         <div className={`w-10 h-10 rounded-xl flex items-center justify-center bg-background border border-border/40 mb-4 group-hover:scale-110 group-hover:bg-muted/50 transition-all duration-300 shadow-sm`}>
           <card.icon className={`w-5 h-5 ${card.iconColor} drop-shadow-sm`} />
         </div>
-        <h3 className="text-base font-bold font-headline mb-2 text-foreground transition-colors drop-shadow-sm">{card.title}</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed max-w-[90%] drop-shadow-sm">{card.desc}</p>
+        <h3 className="text-lg font-bold font-headline mb-2 text-foreground transition-colors drop-shadow-sm">{card.title}</h3>
+        <p className="text-sm text-muted-foreground leading-relaxed drop-shadow-sm">{card.desc}</p>
       </div>
     </motion.div>
   );
@@ -422,7 +419,7 @@ function BentoCard({ card, index }: { card: (typeof cards)[number], index: numbe
 export function BentoGrid() {
   return (
     <section className="relative w-full py-24 bg-background overflow-hidden">
-      <div className="container px-4">
+      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -438,7 +435,7 @@ export function BentoGrid() {
           </h2>
         </motion.div>
 
-        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 md:grid-rows-3 gap-4 auto-rows-[180px] relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-[320px] relative z-10">
           {cards.map((card, i) => (
             <BentoCard key={card.id} card={card} index={i} />
           ))}
