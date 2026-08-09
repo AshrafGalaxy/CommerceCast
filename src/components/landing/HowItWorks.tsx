@@ -2,15 +2,15 @@
 
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Database, BrainCircuit, LineChart, Zap, ShieldCheck, TrendingUp } from 'lucide-react';
+import { Database, BrainCircuit, LineChart, Zap, FileSpreadsheet, Cpu, TrendingUp } from 'lucide-react';
 
 // --- MINI PREVIEW: Station 1 — CSV Row Parsing ---
 const IngestPreview = () => {
   const rows = [
     { label: 'order_id', value: '#44821', color: 'text-blue-400' },
     { label: 'product', value: 'SKU-9A3F', color: 'text-slate-400' },
-    { label: 'qty', value: '128', color: 'text-emerald-400' },
-    { label: 'store', value: 'Shopify', color: 'text-violet-400' },
+    { label: 'qty', value: '128', color: 'text-blue-400' },
+    { label: 'source', value: 'Google Sheets', color: 'text-blue-400' },
     { label: 'timestamp', value: 'now', color: 'text-amber-400' },
   ];
   return (
@@ -280,10 +280,10 @@ const stations = [
   {
     step: '01',
     label: 'Ingest',
-    title: 'Connect your store',
-    desc: 'One-click sync with Shopify, Amazon & WooCommerce. Every order, SKU, and event — captured in real-time.',
+    title: 'Sync Data Sources',
+    desc: 'Connect Google Sheets or upload CSVs directly. Our NoDatabase™ architecture securely ingests your historical data with zero latency.',
     color: 'blue',
-    icon: Database,
+    icon: FileSpreadsheet,
     preview: IngestPreview,
     borderColor: 'border-blue-500/30',
     glowColor: 'shadow-blue-500/10',
@@ -295,10 +295,10 @@ const stations = [
   {
     step: '02',
     label: 'Process',
-    title: 'AI models learn',
-    desc: 'An ensemble of forecasting models ingest your history and learn your business — seasonality, promotions, anomalies.',
+    title: 'AI Ensemble Forecasting',
+    desc: 'Our Python FastAPI backend processes data through Prophet, XGBoost, and ARIMA to detect complex seasonal trends and anomalies.',
     color: 'blue',
-    icon: BrainCircuit,
+    icon: Cpu,
     preview: AIPreview,
     borderColor: 'border-blue-500/30',
     glowColor: 'shadow-blue-500/10',
