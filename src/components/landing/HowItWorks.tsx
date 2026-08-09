@@ -189,10 +189,54 @@ const PipelineSVG = ({ pathLength, opacity }: { pathLength: any, opacity: any })
         <animate attributeName="stroke-dashoffset" from="888" to="0" dur="2.1s" begin="0.7s" repeatCount="indefinite" />
       </path>
 
-      {/* === VERTICAL DROPS TO CARDS === */}
-      <path d="M 120 140 V 80" stroke="#3B82F6" strokeWidth="1" strokeDasharray="2 4" opacity="0.6" />
-      <path d="M 550 140 V 80" stroke="#3B82F6" strokeWidth="1" strokeDasharray="2 4" opacity="0.6" />
-      <path d="M 980 140 V 80" stroke="#3B82F6" strokeWidth="1" strokeDasharray="2 4" opacity="0.6" />
+      {/* === VERTICAL DROPS TO CARDS (Micro-routed connections) === */}
+      {/* Node 1 Drop */}
+      <g stroke="#3B82F6" strokeLinecap="round" strokeLinejoin="round">
+        {/* PCB Background tracks */}
+        <path d="M 120 140 V 200 L 100 220 V 280" strokeWidth="1" strokeDasharray="4 8" opacity="0.3" />
+        <path d="M 120 140 V 220 L 140 240 V 280" strokeWidth="1" strokeDasharray="4 8" opacity="0.3" />
+        <path d="M 120 140 V 280" strokeWidth="1.5" opacity="0.4" />
+        
+        {/* Animated Data Flow (Electric Current) */}
+        <path d="M 120 140 V 280" stroke="#60A5FA" strokeWidth="1.5" strokeDasharray="10 4 2 200" filter="url(#hw-glow-sm)">
+          <animate attributeName="stroke-dashoffset" from="300" to="0" dur="1.5s" begin="0.5s" repeatCount="indefinite" />
+        </path>
+        <path d="M 120 140 V 200 L 100 220 V 280" stroke="#93C5FD" strokeWidth="1" strokeDasharray="2 4 10 200" opacity="0.8" filter="url(#hw-glow-sm)">
+          <animate attributeName="stroke-dashoffset" from="300" to="0" dur="1.8s" begin="0.2s" repeatCount="indefinite" />
+        </path>
+      </g>
+
+      {/* Node 2 Drop */}
+      <g stroke="#3B82F6" strokeLinecap="round" strokeLinejoin="round">
+        {/* PCB Background tracks */}
+        <path d="M 550 140 V 180 L 520 210 V 280" strokeWidth="1" strokeDasharray="4 8" opacity="0.3" />
+        <path d="M 550 140 V 230 L 580 260 V 280" strokeWidth="1" strokeDasharray="4 8" opacity="0.3" />
+        <path d="M 550 140 V 280" strokeWidth="1.5" opacity="0.4" />
+        
+        {/* Animated Data Flow */}
+        <path d="M 550 140 V 280" stroke="#60A5FA" strokeWidth="1.5" strokeDasharray="12 4 4 200" filter="url(#hw-glow-sm)">
+          <animate attributeName="stroke-dashoffset" from="300" to="0" dur="1.4s" begin="1.2s" repeatCount="indefinite" />
+        </path>
+        <path d="M 550 140 V 180 L 520 210 V 280" stroke="#93C5FD" strokeWidth="1" strokeDasharray="2 6 8 200" opacity="0.8" filter="url(#hw-glow-sm)">
+          <animate attributeName="stroke-dashoffset" from="300" to="0" dur="1.7s" begin="0.9s" repeatCount="indefinite" />
+        </path>
+      </g>
+
+      {/* Node 3 Drop */}
+      <g stroke="#3B82F6" strokeLinecap="round" strokeLinejoin="round">
+        {/* PCB Background tracks */}
+        <path d="M 980 140 V 210 L 950 240 V 280" strokeWidth="1" strokeDasharray="4 8" opacity="0.3" />
+        <path d="M 980 140 V 190 L 1010 220 V 280" strokeWidth="1" strokeDasharray="4 8" opacity="0.3" />
+        <path d="M 980 140 V 280" strokeWidth="1.5" opacity="0.4" />
+        
+        {/* Animated Data Flow */}
+        <path d="M 980 140 V 280" stroke="#60A5FA" strokeWidth="1.5" strokeDasharray="10 4 2 200" filter="url(#hw-glow-sm)">
+          <animate attributeName="stroke-dashoffset" from="300" to="0" dur="1.5s" begin="2.0s" repeatCount="indefinite" />
+        </path>
+        <path d="M 980 140 V 190 L 1010 220 V 280" stroke="#93C5FD" strokeWidth="1" strokeDasharray="4 2 10 200" opacity="0.8" filter="url(#hw-glow-sm)">
+          <animate attributeName="stroke-dashoffset" from="300" to="0" dur="1.9s" begin="1.5s" repeatCount="indefinite" />
+        </path>
+      </g>
 
       {/* === NODE 1: INGEST === */}
       <g transform="translate(120, 140)">
