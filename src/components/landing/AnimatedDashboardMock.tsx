@@ -212,7 +212,7 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
           <div className="relative">
             <motion.div 
               animate={{ 
-                backgroundColor: dateActive ? 'rgba(99, 102, 241, 0.1)' : 'transparent',
+                backgroundColor: dateActive ? 'rgba(99, 102, 241, 0.1)' : 'rgba(99, 102, 241, 0)',
                 borderColor: dateActive ? 'rgba(99, 102, 241, 0.3)' : 'rgba(255,255,255,0.1)'
               }}
               className="px-3 py-1.5 rounded-md border border-border bg-background text-xs font-medium text-muted-foreground shadow-sm hover:text-foreground transition-colors cursor-pointer"
@@ -243,7 +243,7 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
           <div className="relative">
             <motion.div 
               animate={{ 
-                backgroundColor: filterActive ? 'rgba(99, 102, 241, 0.1)' : 'transparent',
+                backgroundColor: filterActive ? 'rgba(99, 102, 241, 0.1)' : 'rgba(99, 102, 241, 0)',
                 borderColor: filterActive ? 'rgba(99, 102, 241, 0.3)' : 'rgba(255,255,255,0.1)' 
               }}
               className="px-3 py-1.5 rounded-md border border-border bg-background text-xs font-medium text-muted-foreground shadow-sm flex items-center gap-2 hover:text-foreground transition-colors cursor-pointer"
@@ -294,7 +294,7 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
               animate={{
                 scale: isActive ? 1.02 : 1,
                 borderColor: isActive ? 'rgba(99, 102, 241, 0.5)' : 'rgba(255, 255, 255, 0.05)',
-                backgroundColor: isActive ? 'rgba(99, 102, 241, 0.03)' : 'transparent'
+                backgroundColor: isActive ? 'rgba(99, 102, 241, 0.03)' : 'rgba(99, 102, 241, 0)'
               }}
               className="rounded-xl border p-4 xl:p-5 flex flex-col gap-3 shadow-sm transition-all duration-300 bg-background/50"
             >
