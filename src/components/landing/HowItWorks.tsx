@@ -108,15 +108,16 @@ const OutputPreview = () => {
             key={i}
             className="flex-1 rounded-sm"
             style={{
+              height: `${(h / maxBar) * 100}%`,
+              transformOrigin: 'bottom',
               background: i === bars.length - 1
                 ? 'linear-gradient(to top, #10b981, #34d399)'
                 : 'rgba(16,185,129,0.35)',
             }}
-            initial={{ scaleY: 0, originY: 1 }}
+            initial={{ scaleY: 0 }}
             whileInView={{ scaleY: 1 }}
             viewport={{ once: false }}
             transition={{ duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-            style={{ height: `${(h / maxBar) * 100}%`, transformOrigin: 'bottom' }}
           />
         ))}
       </div>
