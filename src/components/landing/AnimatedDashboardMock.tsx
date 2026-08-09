@@ -67,6 +67,7 @@ export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) 
   // New States for "scrollytelling" UI panels
   const [showSidebar, setShowSidebar] = useState(false);
   const [showLoadingOverlay, setShowLoadingOverlay] = useState(false);
+  const [showDataSelection, setShowDataSelection] = useState(false);
   const [cursorState, setCursorState] = useState({ left: "10%", top: "80%", opacity: 0, scale: 1 });
 
   useEffect(() => {
