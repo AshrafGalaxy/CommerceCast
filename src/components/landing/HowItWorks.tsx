@@ -3,33 +3,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Database, BrainCircuit, LineChart, Zap } from 'lucide-react';
-
-const steps = [
-  {
-    step: '01',
-    icon: Database,
-    title: 'Connect your store',
-    description:
-      'One-click integrations with Shopify, Amazon, WooCommerce. Data synced instantly.',
-    align: 'left',
-  },
-  {
-    step: '02',
-    icon: BrainCircuit,
-    title: 'Models learn your business',
-    description:
-      'Ensemble engine ingests sales history, identifying seasonality & anomalies.',
-    align: 'center',
-  },
-  {
-    step: '03',
-    icon: LineChart,
-    title: 'Act on live intelligence',
-    description:
-      'Get daily forecasts, reorder alerts, and margin-safe promotion plans.',
-    align: 'right',
-  },
-];
+import { cn } from '@/lib/utils';
 
 // Complex orthogonal traces (microchip PCB style)
 const traces = [
@@ -53,15 +27,15 @@ const traces = [
 
 // Specific paths for glowing electricity to travel
 const surges = [
-  { path: "M 0 400 H 200 H 600 H 1000 H 1200", color: "#3B82F6", dur: "3s", delay: "0s", dash: "10 300" },
-  { path: "M 0 400 H 200 H 600 H 1000 H 1200", color: "#A78BFA", dur: "3s", delay: "1.5s", dash: "5 300" },
-  { path: "M 100 0 V 200 H 200 V 400", color: "#22C55E", dur: "2s", delay: "0.5s", dash: "4 150" },
-  { path: "M 300 0 V 150 H 500 V 400 H 600", color: "#3B82F6", dur: "2.5s", delay: "1s", dash: "6 200" },
-  { path: "M 700 800 V 600 H 600 V 400", color: "#A78BFA", dur: "2s", delay: "0.2s", dash: "8 180" },
-  { path: "M 0 200 H 300 V 400 H 600", color: "#3B82F6", dur: "3.5s", delay: "0s", dash: "4 250" },
-  { path: "M 1200 150 H 800 V 400 H 600", color: "#EAB308", dur: "2.8s", delay: "0.7s", dash: "5 220" },
-  { path: "M 1200 650 H 950 V 400 H 1000", color: "#22C55E", dur: "2.2s", delay: "1.2s", dash: "3 160" },
-  { path: "M 400 800 V 500 H 600 V 400", color: "#3B82F6", dur: "2.4s", delay: "0.4s", dash: "6 190" },
+  { path: "M 0 400 H 200 H 600 H 1000 H 1200", class: "stroke-blue-600 dark:stroke-blue-500", dur: "3s", delay: "0s", dash: "10 300" },
+  { path: "M 0 400 H 200 H 600 H 1000 H 1200", class: "stroke-violet-600 dark:stroke-violet-400", dur: "3s", delay: "1.5s", dash: "5 300" },
+  { path: "M 100 0 V 200 H 200 V 400", class: "stroke-emerald-600 dark:stroke-emerald-400", dur: "2s", delay: "0.5s", dash: "4 150" },
+  { path: "M 300 0 V 150 H 500 V 400 H 600", class: "stroke-blue-600 dark:stroke-blue-500", dur: "2.5s", delay: "1s", dash: "6 200" },
+  { path: "M 700 800 V 600 H 600 V 400", class: "stroke-violet-600 dark:stroke-violet-400", dur: "2s", delay: "0.2s", dash: "8 180" },
+  { path: "M 0 200 H 300 V 400 H 600", class: "stroke-blue-600 dark:stroke-blue-500", dur: "3.5s", delay: "0s", dash: "4 250" },
+  { path: "M 1200 150 H 800 V 400 H 600", class: "stroke-amber-500", dur: "2.8s", delay: "0.7s", dash: "5 220" },
+  { path: "M 1200 650 H 950 V 400 H 1000", class: "stroke-emerald-600 dark:stroke-emerald-400", dur: "2.2s", delay: "1.2s", dash: "3 160" },
+  { path: "M 400 800 V 500 H 600 V 400", class: "stroke-blue-600 dark:stroke-blue-500", dur: "2.4s", delay: "0.4s", dash: "6 190" },
 ];
 
 export function HowItWorks() {
@@ -77,8 +51,8 @@ export function HowItWorks() {
 
   return (
     <section id="how-it-works" className="relative w-full py-24 md:py-32 bg-background overflow-hidden text-foreground">
-      {/* Background dots for tech vibe */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.05)_1px,transparent_1px)] dark:bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[length:24px_24px]" />
+      {/* Background dots for tech vibe, adapting to light/dark */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.06)_1px,transparent_1px)] dark:bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[length:24px_24px]" />
       
       <div className="container px-4 relative z-10">
         {/* Header */}
@@ -93,7 +67,7 @@ export function HowItWorks() {
             <Zap className="w-3.5 h-3.5" />
             Live Processing
           </div>
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tighter font-headline text-foreground drop-shadow-lg">
+          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tighter font-headline text-foreground drop-shadow-sm dark:drop-shadow-lg">
             From data to decisions in minutes
           </h2>
         </motion.div>
@@ -113,25 +87,40 @@ export function HowItWorks() {
                   <feGaussianBlur stdDeviation="15" result="blur" />
                   <feComposite in="SourceGraphic" in2="blur" operator="over" />
                 </filter>
+                
+                {/* Node gradients that work in both themes */}
+                <radialGradient id="node1-glow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" className="stop-color-blue-500" stopOpacity="0.4" />
+                  <stop offset="100%" className="stop-color-blue-500" stopOpacity="0" />
+                </radialGradient>
+                <radialGradient id="node2-glow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" className="stop-color-violet-500" stopOpacity="0.4" />
+                  <stop offset="100%" className="stop-color-violet-500" stopOpacity="0" />
+                </radialGradient>
+                <radialGradient id="node3-glow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" className="stop-color-emerald-500" stopOpacity="0.4" />
+                  <stop offset="100%" className="stop-color-emerald-500" stopOpacity="0" />
+                </radialGradient>
               </defs>
 
-              {/* Static Background Traces */}
-              {traces.map((d, i) => (
-                <path
-                  key={i}
-                  d={d}
-                  fill="none"
-                  stroke="rgba(255,255,255,0.08)"
-                  strokeWidth="2"
-                  strokeLinejoin="round"
-                />
-              ))}
+              {/* Static Background Traces (Adapts to light/dark via stroke-border) */}
+              <g className="stroke-border opacity-60">
+                {traces.map((d, i) => (
+                  <path
+                    key={i}
+                    d={d}
+                    fill="none"
+                    strokeWidth="1.5"
+                    strokeLinejoin="round"
+                  />
+                ))}
+              </g>
 
               {/* Active Scroll Trace */}
               <motion.path
                 d="M 0 400 H 200 H 600 H 1000 H 1200"
                 fill="none"
-                stroke="#3B82F6"
+                className="stroke-blue-500 dark:stroke-blue-400"
                 strokeWidth="3"
                 style={{ pathLength, opacity }}
                 filter="url(#glow)"
@@ -143,13 +132,12 @@ export function HowItWorks() {
                   key={`surge-${i}`}
                   d={surge.path}
                   fill="none"
-                  stroke={surge.color}
+                  className={cn(surge.class, "opacity-80 drop-shadow-md")}
                   strokeWidth="3"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeDasharray={surge.dash}
                   filter="url(#glow)"
-                  className="opacity-80"
                 >
                   <animate 
                     attributeName="stroke-dashoffset" 
@@ -162,47 +150,70 @@ export function HowItWorks() {
                 </path>
               ))}
 
-              {/* --- PROCESSOR NODES --- */}
+              {/* --- ADVANCED PROCESSOR NODES --- */}
 
-              {/* Node 1: Ingestion (Left) */}
+              {/* Node 1: Ingestion (Left) - Data packets flowing in */}
               <g transform="translate(200, 400)">
-                <circle r="24" fill="#0f172a" stroke="#3B82F6" strokeWidth="2" filter="url(#glow)" />
-                <circle r="12" fill="#3B82F6" className="animate-pulse" />
+                <circle r="45" fill="url(#node1-glow)" className="animate-pulse" />
+                <circle r="24" className="fill-background stroke-blue-500 dark:stroke-blue-400" strokeWidth="2" filter="url(#glow)" />
+                {/* Rotating dashed ring */}
+                <motion.circle r="34" fill="none" className="stroke-blue-500/50" strokeWidth="2" strokeDasharray="6 6"
+                  animate={{ rotate: 360 }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                />
+                <circle r="8" className="fill-blue-500 dark:fill-blue-400" />
               </g>
 
-              {/* Node 2: Core Processor (Center) */}
+              {/* Node 2: Core Processor (Center) - Breathing AI Core */}
               <g transform="translate(600, 400)">
-                <rect x="-40" y="-40" width="80" height="80" rx="12" fill="#0f172a" stroke="#A78BFA" strokeWidth="3" filter="url(#glow-intense)" className="animate-[pulse_3s_ease-in-out_indefinite]" />
-                <rect x="-30" y="-30" width="60" height="60" rx="8" fill="rgba(167,139,250,0.1)" stroke="#A78BFA" strokeWidth="1" />
-                <path d="M -20 -20 L 20 20 M 20 -20 L -20 20" stroke="#A78BFA" strokeWidth="2" opacity="0.5" />
-                <circle r="16" fill="#A78BFA" filter="url(#glow)" />
+                <circle r="80" fill="url(#node2-glow)" />
+                <motion.rect x="-40" y="-40" width="80" height="80" rx="16" className="fill-background stroke-violet-600 dark:stroke-violet-400" strokeWidth="2" filter="url(#glow-intense)" 
+                  animate={{ rotate: [0, 90], scale: [1, 1.1, 1] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} 
+                />
+                <motion.rect x="-25" y="-25" width="50" height="50" rx="8" className="fill-violet-500/10 stroke-violet-500/60" strokeWidth="1" 
+                  animate={{ rotate: [45, -45] }} transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                />
+                {/* Inner Core */}
+                <motion.circle r="12" className="fill-violet-600 dark:fill-violet-400" filter="url(#glow)" 
+                  animate={{ scale: [1, 1.3, 1], opacity: [0.8, 1, 0.8] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                />
               </g>
 
-              {/* Node 3: Output (Right) */}
+              {/* Node 3: Output (Right) - Radial expanding waves */}
               <g transform="translate(1000, 400)">
-                <circle r="24" fill="#0f172a" stroke="#22C55E" strokeWidth="2" filter="url(#glow)" />
-                <polygon points="0,-12 12,6 -12,6" fill="#22C55E" transform="rotate(90) translate(0, 2)" className="animate-pulse" />
+                <circle r="45" fill="url(#node3-glow)" />
+                
+                {/* Expanding waves */}
+                <motion.circle r="20" fill="none" className="stroke-emerald-500" strokeWidth="2"
+                  animate={{ r: [20, 60], opacity: [0.8, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+                />
+                <motion.circle r="20" fill="none" className="stroke-emerald-500" strokeWidth="2"
+                  animate={{ r: [20, 60], opacity: [0.8, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeOut", delay: 1 }}
+                />
+
+                <circle r="24" className="fill-background stroke-emerald-600 dark:stroke-emerald-400" strokeWidth="2" filter="url(#glow)" />
+                <polygon points="0,-8 8,4 -8,4" className="fill-emerald-600 dark:fill-emerald-400" transform="rotate(90) translate(0, 2)" />
               </g>
             </svg>
           </div>
 
           {/* Floating HUD Panels for Text Descriptions */}
+          
           {/* Panel 1 */}
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="absolute top-[10%] left-[5%] md:top-[20%] md:left-[10%] w-[260px] p-5 rounded-xl bg-slate-950/60 backdrop-blur-xl border border-slate-800 shadow-[0_0_30px_rgba(59,130,246,0.1)] z-10 group"
+            className="absolute top-[10%] left-[5%] md:top-[20%] md:left-[10%] w-[260px] p-5 rounded-xl bg-card/80 backdrop-blur-xl border border-border shadow-lg z-10 group hover:-translate-y-1 transition-transform"
           >
             <div className="flex items-center gap-3 mb-3">
-              <div className="p-2 rounded-lg bg-blue-500/20 text-blue-400 group-hover:scale-110 group-hover:bg-blue-500/30 transition-all">
+              <div className="p-2 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all shadow-sm">
                 <Database className="w-5 h-5" />
               </div>
-              <span className="text-xs font-bold text-blue-400 uppercase tracking-widest">N-01 Data IN</span>
+              <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">N-01 Data IN</span>
             </div>
-            <h3 className="text-lg font-bold text-white mb-2 leading-tight">Connect your store</h3>
-            <p className="text-sm text-slate-400 leading-relaxed">
+            <h3 className="text-lg font-bold text-card-foreground mb-2 leading-tight">Connect your store</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
               One-click integrations with Shopify, Amazon, WooCommerce. Data synced instantly.
             </p>
           </motion.div>
@@ -213,16 +224,16 @@ export function HowItWorks() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="absolute bottom-[5%] left-[50%] -translate-x-1/2 md:bottom-[15%] w-[300px] p-5 rounded-xl bg-slate-950/60 backdrop-blur-xl border border-purple-500/30 shadow-[0_0_40px_rgba(167,139,250,0.15)] z-10 group"
+            className="absolute bottom-[5%] left-[50%] -translate-x-1/2 md:bottom-[15%] w-[300px] p-5 rounded-xl bg-card/80 backdrop-blur-xl border border-border shadow-xl z-10 group hover:-translate-y-1 transition-transform"
           >
             <div className="flex items-center gap-3 mb-3">
-              <div className="p-2 rounded-lg bg-purple-500/20 text-purple-400 group-hover:scale-110 group-hover:bg-purple-500/30 transition-all">
+              <div className="p-2 rounded-lg bg-violet-500/10 text-violet-600 dark:text-violet-400 group-hover:scale-110 group-hover:bg-violet-500/20 transition-all shadow-sm">
                 <BrainCircuit className="w-5 h-5" />
               </div>
-              <span className="text-xs font-bold text-purple-400 uppercase tracking-widest">N-02 AI CORE</span>
+              <span className="text-[10px] font-bold text-violet-600 dark:text-violet-400 uppercase tracking-widest">N-02 AI CORE</span>
             </div>
-            <h3 className="text-lg font-bold text-white mb-2 leading-tight">Models learn your business</h3>
-            <p className="text-sm text-slate-400 leading-relaxed">
+            <h3 className="text-lg font-bold text-card-foreground mb-2 leading-tight">Models learn your business</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
               Ensemble engine ingests sales history, identifying seasonality, promotions, and anomalies.
             </p>
           </motion.div>
@@ -233,16 +244,16 @@ export function HowItWorks() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="absolute top-[10%] right-[5%] md:top-[20%] md:right-[10%] w-[260px] p-5 rounded-xl bg-slate-950/60 backdrop-blur-xl border border-slate-800 shadow-[0_0_30px_rgba(34,197,94,0.1)] z-10 group"
+            className="absolute top-[10%] right-[5%] md:top-[20%] md:right-[10%] w-[260px] p-5 rounded-xl bg-card/80 backdrop-blur-xl border border-border shadow-lg z-10 group hover:-translate-y-1 transition-transform"
           >
             <div className="flex items-center gap-3 mb-3">
-              <div className="p-2 rounded-lg bg-green-500/20 text-green-400 group-hover:scale-110 group-hover:bg-green-500/30 transition-all">
+              <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 group-hover:scale-110 group-hover:bg-emerald-500/20 transition-all shadow-sm">
                 <LineChart className="w-5 h-5" />
               </div>
-              <span className="text-xs font-bold text-green-400 uppercase tracking-widest">N-03 ACTION OUT</span>
+              <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">N-03 ACTION OUT</span>
             </div>
-            <h3 className="text-lg font-bold text-white mb-2 leading-tight">Act on intelligence</h3>
-            <p className="text-sm text-slate-400 leading-relaxed">
+            <h3 className="text-lg font-bold text-card-foreground mb-2 leading-tight">Act on intelligence</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
               Get daily forecasts, smart reorder alerts, and margin-safe promotion plans.
             </p>
           </motion.div>

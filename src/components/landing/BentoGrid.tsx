@@ -370,7 +370,7 @@ function BentoCard({ card, index }: { card: (typeof cards)[number], index: numbe
         hover: { y: -3, transition: { duration: 0.2 } }
       }}
       className={cn(
-        `group relative flex flex-col justify-between p-6 rounded-2xl border border-border/40 bg-gradient-to-br from-background to-muted/20 overflow-hidden cursor-default transition-shadow hover:shadow-lg hover:shadow-background/50`,
+        `group relative flex flex-col justify-between p-6 rounded-2xl border border-border/80 bg-card text-card-foreground overflow-hidden cursor-default transition-shadow hover:shadow-lg hover:border-border`,
         sizeClasses[card.size as CardSize]
       )}
     >
