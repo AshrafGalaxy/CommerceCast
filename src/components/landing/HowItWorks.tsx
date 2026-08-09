@@ -133,14 +133,16 @@ const OutputPreview = () => {
 // --- PIPELINE SVG ---
 const PipelineSVG = ({ pathLength, opacity }: { pathLength: any, opacity: any }) => {
   // PCB Routing paths for a microprocessor look
-  const trackCenter = "M 120 140 H 980";
-  const trackTop1 = "M 120 140 L 140 120 H 530 L 550 140 L 570 120 H 960 L 980 140";
-  const trackBot1 = "M 120 140 L 140 160 H 530 L 550 140 L 570 160 H 960 L 980 140";
-  const trackTop2 = "M 120 140 L 150 108 H 520 L 550 140 L 580 108 H 950 L 980 140";
-  const trackBot2 = "M 120 140 L 150 172 H 520 L 550 140 L 580 172 H 950 L 980 140";
+  const trackCenter1 = "M 200 140 H 600";
+  const trackCenter2 = "M 600 140 H 1000";
+  
+  const t1_top = "M 200 140 L 250 110 H 350 L 400 140 L 450 110 H 550 L 600 140";
+  const t1_bot = "M 200 140 L 250 170 H 350 L 400 140 L 450 170 H 550 L 600 140";
+  const t2_top = "M 600 140 L 650 110 H 750 L 800 140 L 850 110 H 950 L 1000 140";
+  const t2_bot = "M 600 140 L 650 170 H 750 L 800 140 L 850 170 H 950 L 1000 140";
 
   return (
-    <svg className="w-full h-full" viewBox="0 0 1100 280" preserveAspectRatio="xMidYMid meet" fill="none">
+    <svg className="w-full h-full" viewBox="0 0 1200 280" preserveAspectRatio="xMidYMid meet" fill="none">
       <defs>
         <filter id="hw-glow" x="-30%" y="-30%" width="160%" height="160%">
           <feGaussianBlur stdDeviation="6" result="blur" />
@@ -157,97 +159,82 @@ const PipelineSVG = ({ pathLength, opacity }: { pathLength: any, opacity: any })
         </radialGradient>
       </defs>
 
-      {/* === DEAD TRACKS (Background PCB Lines) === */}
+      {/* === BACKGROUND PCB === */}
       <g stroke="currentColor" className="text-blue-500/20" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-        <path d={trackTop2} />
-        <path d={trackBot2} />
-        <path d={trackTop1} strokeWidth="1.5" className="text-blue-500/30" />
-        <path d={trackBot1} strokeWidth="1.5" className="text-blue-500/30" />
-        <path d={trackCenter} strokeWidth="2" className="text-blue-500/40" />
+        <path d={t1_top} />
+        <path d={t1_bot} />
+        <path d={t2_top} />
+        <path d={t2_bot} />
+        <path d={trackCenter1} strokeWidth="2" className="text-blue-500/30" />
+        <path d={trackCenter2} strokeWidth="2" className="text-blue-500/30" />
+        
+        {/* Terminal drops */}
+        <path d="M 200 280 V 140" strokeWidth="1.5" />
+        <path d="M 590 280 V 140" strokeWidth="1.5" />
+        <path d="M 610 140 V 280" strokeWidth="1.5" />
+        <path d="M 1000 140 V 280" strokeWidth="1.5" />
       </g>
 
-      {/* === ILLUMINATED TRACES (Scroll Driven) === */}
-      <motion.g stroke="#3B82F6" strokeLinecap="round" strokeLinejoin="round" style={{ pathLength, opacity }}>
-        <path d={trackTop2} strokeWidth="1" strokeDasharray="4 8" opacity="0.4" />
-        <path d={trackBot2} strokeWidth="1" strokeDasharray="4 8" opacity="0.4" />
-        <path d={trackTop1} strokeWidth="1.5" opacity="0.6" filter="url(#hw-glow-sm)" />
-        <path d={trackBot1} strokeWidth="1.5" opacity="0.6" filter="url(#hw-glow-sm)" />
-        <path d={trackCenter} strokeWidth="2" filter="url(#hw-glow)" />
-      </motion.g>
-
-      {/* === LIVE DATA PACKETS === */}
-      {/* Center line fast stream */}
-      <path d={trackCenter} stroke="#60A5FA" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 2 12 4 4 600" filter="url(#hw-glow)">
-        <animate attributeName="stroke-dashoffset" from="860" to="0" dur="2s" begin="0s" repeatCount="indefinite" />
-      </path>
-      {/* Top1 stream */}
-      <path d={trackTop1} stroke="#93C5FD" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="2 4 6 600" opacity="0.8" filter="url(#hw-glow-sm)">
-        <animate attributeName="stroke-dashoffset" from="888" to="0" dur="2.2s" begin="0.3s" repeatCount="indefinite" />
-      </path>
-      {/* Bot1 stream */}
-      <path d={trackBot1} stroke="#93C5FD" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="8 2 2 600" opacity="0.8" filter="url(#hw-glow-sm)">
-        <animate attributeName="stroke-dashoffset" from="888" to="0" dur="2.1s" begin="0.7s" repeatCount="indefinite" />
+      {/* === ANIMATED TRACES (Electric Current) === */}
+      
+      {/* 1. UP from Card 1 */}
+      <path d="M 200 280 V 140" stroke="#60A5FA" strokeWidth="2" strokeDasharray="15 140" filter="url(#hw-glow-sm)">
+        <animate attributeName="stroke-dashoffset" from="140" to="-15" dur="1s" repeatCount="indefinite" />
       </path>
 
-      {/* === VERTICAL DROPS TO CARDS (Micro-routed connections) === */}
-      {/* Node 1 Drop */}
-      <g stroke="#3B82F6" strokeLinecap="round" strokeLinejoin="round">
-        {/* PCB Background tracks */}
-        <path d="M 120 140 V 200 L 100 220 V 280" strokeWidth="1" strokeDasharray="4 8" opacity="0.3" />
-        <path d="M 120 140 V 220 L 140 240 V 280" strokeWidth="1" strokeDasharray="4 8" opacity="0.3" />
-        <path d="M 120 140 V 280" strokeWidth="1.5" opacity="0.4" />
-        
-        {/* Animated Data Flow (Electric Current) */}
-        <path d="M 120 140 V 280" stroke="#60A5FA" strokeWidth="1.5" strokeDasharray="10 4 2 200" filter="url(#hw-glow-sm)">
-          <animate attributeName="stroke-dashoffset" from="300" to="0" dur="1.5s" begin="0.5s" repeatCount="indefinite" />
-        </path>
-        <path d="M 120 140 V 200 L 100 220 V 280" stroke="#93C5FD" strokeWidth="1" strokeDasharray="2 4 10 200" opacity="0.8" filter="url(#hw-glow-sm)">
-          <animate attributeName="stroke-dashoffset" from="300" to="0" dur="1.8s" begin="0.2s" repeatCount="indefinite" />
-        </path>
+      {/* 2. Across to Node 2 */}
+      <path d={t1_top} stroke="#93C5FD" strokeWidth="1.5" strokeDasharray="10 4 2 400" filter="url(#hw-glow-sm)">
+        <animate attributeName="stroke-dashoffset" from="400" to="0" dur="2s" begin="0.5s" repeatCount="indefinite" />
+      </path>
+      <path d={trackCenter1} stroke="#60A5FA" strokeWidth="2" strokeDasharray="15 5 5 400" filter="url(#hw-glow)">
+        <animate attributeName="stroke-dashoffset" from="400" to="0" dur="1.5s" begin="0s" repeatCount="indefinite" />
+      </path>
+      <path d={t1_bot} stroke="#93C5FD" strokeWidth="1.5" strokeDasharray="4 2 10 400" filter="url(#hw-glow-sm)">
+        <animate attributeName="stroke-dashoffset" from="400" to="0" dur="2s" begin="0.8s" repeatCount="indefinite" />
+      </path>
+
+      {/* 3. DOWN to Card 2 */}
+      <path d="M 610 140 V 280" stroke="#60A5FA" strokeWidth="2" strokeDasharray="15 140" filter="url(#hw-glow-sm)">
+        <animate attributeName="stroke-dashoffset" from="15" to="-140" dur="1s" begin="1.5s" repeatCount="indefinite" />
+      </path>
+
+      {/* 4. UP from Card 2 */}
+      <path d="M 590 280 V 140" stroke="#60A5FA" strokeWidth="2" strokeDasharray="15 140" filter="url(#hw-glow-sm)">
+        <animate attributeName="stroke-dashoffset" from="140" to="-15" dur="1s" begin="2.5s" repeatCount="indefinite" />
+      </path>
+
+      {/* 5. Across to Node 3 */}
+      <path d={t2_top} stroke="#93C5FD" strokeWidth="1.5" strokeDasharray="10 4 2 400" filter="url(#hw-glow-sm)">
+        <animate attributeName="stroke-dashoffset" from="400" to="0" dur="2s" begin="3s" repeatCount="indefinite" />
+      </path>
+      <path d={trackCenter2} stroke="#60A5FA" strokeWidth="2" strokeDasharray="15 5 5 400" filter="url(#hw-glow)">
+        <animate attributeName="stroke-dashoffset" from="400" to="0" dur="1.5s" begin="2.5s" repeatCount="indefinite" />
+      </path>
+      <path d={t2_bot} stroke="#93C5FD" strokeWidth="1.5" strokeDasharray="4 2 10 400" filter="url(#hw-glow-sm)">
+        <animate attributeName="stroke-dashoffset" from="400" to="0" dur="2s" begin="3.2s" repeatCount="indefinite" />
+      </path>
+
+      {/* 6. DOWN to Card 3 */}
+      <path d="M 1000 140 V 280" stroke="#60A5FA" strokeWidth="2" strokeDasharray="15 140" filter="url(#hw-glow-sm)">
+        <animate attributeName="stroke-dashoffset" from="15" to="-140" dur="1s" begin="4s" repeatCount="indefinite" />
+      </path>
+
+      {/* === NODES === */}
+      {/* Node 1 */}
+      <g transform="translate(200, 140)">
+        <circle r="34" fill="url(#node-glow)" />
+        <circle r="16" className="fill-card" stroke="#3B82F6" strokeWidth="2" filter="url(#hw-glow-sm)" />
+        <circle r="6" fill="#3B82F6" filter="url(#hw-glow-sm)" />
+      </g>
+      
+      {/* Node 1A (Intermediate) */}
+      <g transform="translate(400, 140)">
+        <circle r="8" className="fill-card" stroke="#3B82F6" strokeWidth="1.5" />
+        <circle r="3" fill="#3B82F6" />
       </g>
 
-      {/* Node 2 Drop */}
-      <g stroke="#3B82F6" strokeLinecap="round" strokeLinejoin="round">
-        {/* PCB Background tracks */}
-        <path d="M 550 140 V 180 L 520 210 V 280" strokeWidth="1" strokeDasharray="4 8" opacity="0.3" />
-        <path d="M 550 140 V 230 L 580 260 V 280" strokeWidth="1" strokeDasharray="4 8" opacity="0.3" />
-        <path d="M 550 140 V 280" strokeWidth="1.5" opacity="0.4" />
-        
-        {/* Animated Data Flow */}
-        <path d="M 550 140 V 280" stroke="#60A5FA" strokeWidth="1.5" strokeDasharray="12 4 4 200" filter="url(#hw-glow-sm)">
-          <animate attributeName="stroke-dashoffset" from="300" to="0" dur="1.4s" begin="1.2s" repeatCount="indefinite" />
-        </path>
-        <path d="M 550 140 V 180 L 520 210 V 280" stroke="#93C5FD" strokeWidth="1" strokeDasharray="2 6 8 200" opacity="0.8" filter="url(#hw-glow-sm)">
-          <animate attributeName="stroke-dashoffset" from="300" to="0" dur="1.7s" begin="0.9s" repeatCount="indefinite" />
-        </path>
-      </g>
-
-      {/* Node 3 Drop */}
-      <g stroke="#3B82F6" strokeLinecap="round" strokeLinejoin="round">
-        {/* PCB Background tracks */}
-        <path d="M 980 140 V 210 L 950 240 V 280" strokeWidth="1" strokeDasharray="4 8" opacity="0.3" />
-        <path d="M 980 140 V 190 L 1010 220 V 280" strokeWidth="1" strokeDasharray="4 8" opacity="0.3" />
-        <path d="M 980 140 V 280" strokeWidth="1.5" opacity="0.4" />
-        
-        {/* Animated Data Flow */}
-        <path d="M 980 140 V 280" stroke="#60A5FA" strokeWidth="1.5" strokeDasharray="10 4 2 200" filter="url(#hw-glow-sm)">
-          <animate attributeName="stroke-dashoffset" from="300" to="0" dur="1.5s" begin="2.0s" repeatCount="indefinite" />
-        </path>
-        <path d="M 980 140 V 190 L 1010 220 V 280" stroke="#93C5FD" strokeWidth="1" strokeDasharray="4 2 10 200" opacity="0.8" filter="url(#hw-glow-sm)">
-          <animate attributeName="stroke-dashoffset" from="300" to="0" dur="1.9s" begin="1.5s" repeatCount="indefinite" />
-        </path>
-      </g>
-
-      {/* === NODE 1: INGEST === */}
-      <g transform="translate(120, 140)">
-        <circle r="44" fill="url(#node-glow)" />
-        <circle r="22" className="fill-card" stroke="#3B82F6" strokeWidth="2.5" filter="url(#hw-glow-sm)" />
-        <circle r="7" fill="#3B82F6" filter="url(#hw-glow-sm)" />
-        <circle r="32" stroke="#3B82F6" strokeWidth="1" strokeDasharray="4 6" opacity="0.35" />
-      </g>
-
-      {/* === NODE 2: AI CORE (Now Circular) === */}
-      <g transform="translate(550, 140)">
+      {/* Node 2 */}
+      <g transform="translate(600, 140)">
         <circle r="54" fill="url(#node-glow)" />
         <circle r="26" className="fill-card" stroke="#3B82F6" strokeWidth="2.5" filter="url(#hw-glow)" />
         <circle r="36" stroke="#3B82F6" strokeWidth="1.5" strokeDasharray="2 4" opacity="0.6" />
@@ -257,19 +244,21 @@ const PipelineSVG = ({ pathLength, opacity }: { pathLength: any, opacity: any })
         />
       </g>
 
-      {/* === NODE 3: OUTPUT === */}
-      <g transform="translate(980, 140)">
-        <circle r="44" fill="url(#node-glow)" />
-        <motion.circle r="22" fill="none" stroke="#3B82F6" strokeWidth="1.5"
-          animate={{ r: [22, 55], opacity: [0.7, 0] }}
+      {/* Node 2A (Intermediate) */}
+      <g transform="translate(800, 140)">
+        <circle r="8" className="fill-card" stroke="#3B82F6" strokeWidth="1.5" />
+        <circle r="3" fill="#3B82F6" />
+      </g>
+
+      {/* Node 3 */}
+      <g transform="translate(1000, 140)">
+        <circle r="34" fill="url(#node-glow)" />
+        <motion.circle r="16" fill="none" stroke="#3B82F6" strokeWidth="1.5"
+          animate={{ r: [16, 32], opacity: [0.7, 0] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: 'easeOut' }}
         />
-        <motion.circle r="22" fill="none" stroke="#3B82F6" strokeWidth="1"
-          animate={{ r: [22, 55], opacity: [0.4, 0] }}
-          transition={{ duration: 2.5, repeat: Infinity, ease: 'easeOut', delay: 0.8 }}
-        />
-        <circle r="22" className="fill-card" stroke="#3B82F6" strokeWidth="2.5" filter="url(#hw-glow-sm)" />
-        <circle r="7" fill="#3B82F6" filter="url(#hw-glow-sm)" />
+        <circle r="16" className="fill-card" stroke="#3B82F6" strokeWidth="2" filter="url(#hw-glow-sm)" />
+        <circle r="6" fill="#3B82F6" filter="url(#hw-glow-sm)" />
       </g>
     </svg>
   );
@@ -380,8 +369,48 @@ export function HowItWorks() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.55, delay: i * 0.18, ease: [0.22, 1, 0.36, 1] }}
-                  className={`group relative flex flex-col rounded-2xl border ${station.borderColor} bg-card/80 backdrop-blur-xl p-6 hover:-translate-y-1.5 transition-all duration-300 hover:shadow-xl ${station.glowColor}`}
+                  className={`group relative flex flex-col rounded-2xl border ${station.borderColor} bg-card/80 backdrop-blur-xl p-6 hover:-translate-y-1.5 transition-all duration-300 hover:shadow-xl ${station.glowColor} overflow-hidden`}
                 >
+                  {/* SVG Border Overlays for complex routing flow */}
+                  <svg className="absolute inset-0 w-full h-full pointer-events-none hidden md:block" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    {station.step === '01' && (
+                      <>
+                        <path d="M 0 50 L 0 0 L 50 0" stroke="#3B82F6" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" opacity="0.3" />
+                        <path d="M 100 50 L 100 0 L 50 0" stroke="#3B82F6" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" opacity="0.3" />
+                        <path d="M 0 50 L 0 0 L 50 0" stroke="#60A5FA" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" strokeDasharray="20 150">
+                          <animate attributeName="stroke-dashoffset" from="20" to="-100" dur="1s" repeatCount="indefinite" />
+                        </path>
+                        <path d="M 100 50 L 100 0 L 50 0" stroke="#60A5FA" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" strokeDasharray="20 150">
+                          <animate attributeName="stroke-dashoffset" from="20" to="-100" dur="1s" repeatCount="indefinite" />
+                        </path>
+                      </>
+                    )}
+                    {station.step === '02' && (
+                      <>
+                        <path d="M 50 0 L 0 0 L 0 50" stroke="#3B82F6" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" opacity="0.3" />
+                        <path d="M 50 0 L 100 0 L 100 50" stroke="#3B82F6" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" opacity="0.3" />
+                        <path d="M 50 0 L 0 0 L 0 50" stroke="#60A5FA" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" strokeDasharray="20 200">
+                          <animate attributeName="stroke-dashoffset" values="20; -100; 20" dur="2s" begin="1.5s" repeatCount="indefinite" />
+                        </path>
+                        <path d="M 50 0 L 100 0 L 100 50" stroke="#60A5FA" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" strokeDasharray="20 200">
+                          <animate attributeName="stroke-dashoffset" values="20; -100; 20" dur="2s" begin="1.5s" repeatCount="indefinite" />
+                        </path>
+                      </>
+                    )}
+                    {station.step === '03' && (
+                      <>
+                        <path d="M 50 0 L 0 0 L 0 100" stroke="#3B82F6" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" opacity="0.3" />
+                        <path d="M 50 0 L 100 0 L 100 100" stroke="#3B82F6" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" opacity="0.3" />
+                        <path d="M 50 0 L 0 0 L 0 100" stroke="#60A5FA" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" strokeDasharray="20 200">
+                          <animate attributeName="stroke-dashoffset" from="20" to="-150" dur="1.5s" begin="4s" repeatCount="indefinite" />
+                        </path>
+                        <path d="M 50 0 L 100 0 L 100 100" stroke="#60A5FA" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" strokeDasharray="20 200">
+                          <animate attributeName="stroke-dashoffset" from="20" to="-150" dur="1.5s" begin="4s" repeatCount="indefinite" />
+                        </path>
+                      </>
+                    )}
+                  </svg>
+
                   {/* Step badge */}
                   <div className="flex items-center justify-between mb-5">
                     <div className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full ${station.badgeBg} border ${station.borderColor}`}>
