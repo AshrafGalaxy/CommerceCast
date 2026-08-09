@@ -87,6 +87,8 @@ export function HeroSection() {
   // 3. Dashboard expansions over [0.3, 0.8]
   const expandProgress = useTransform(smoothProgress, [0.3, 0.8], [0, 1]);
   const mockMaskOpacity = useTransform(smoothProgress, [0.3, 0.6], [1, 0]);
+  const rotateX = useTransform(smoothProgress, [0.3, 0.8], ["8deg", "0deg"]);
+  const mockScale = useTransform(smoothProgress, [0.3, 0.8], [0.95, 1]);
 
   useMotionValueEvent(expandProgress, "change", (latest) => {
     if (latest > 0.9 && !isExpanded) setIsExpanded(true);
@@ -115,7 +117,7 @@ export function HeroSection() {
       <section ref={containerRef} className="relative w-full h-[200vh] z-20">
         
         {/* Sticky viewport frame */}
-        <div className="sticky top-0 h-screen w-full flex flex-col items-center overflow-hidden">
+        <div className="sticky top-0 h-screen w-full flex flex-col items-center overflow-hidden" style={{ perspective: '1200px' }}>
           
           {/* HEADER LAYER */}
           <motion.div
@@ -182,9 +184,12 @@ export function HeroSection() {
           <motion.div
             style={{ 
               y: dashboardY,
+              rotateX,
+              scale: mockScale,
               '--expand': expandProgress,
-              width: 'calc(1024px + (100vw - 128px - 1024px) * var(--expand))',
-              height: 'calc(550px + (100vh - 120px - 550px) * var(--expand))'
+              width: 'calc(1024px + (100vw - 256px - 1024px) * var(--expand))',
+              height: 'calc(550px + (100vh - 180px - 550px) * var(--expand))',
+              transformOrigin: 'bottom center'
             } as any}
             className="absolute z-20 flex flex-col"
           >
