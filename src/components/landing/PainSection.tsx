@@ -1,33 +1,33 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useInView, useMotionValue, useSpring, useEffect as useFramerEffect } from 'framer-motion';
+import { motion, useInView, useMotionValue, useSpring } from 'framer-motion';
 import { useEffect } from 'react';
 
 const stats = [
   {
-    value: 2.1,
-    suffix: 'M',
-    prefix: '$',
+    value: 17.5,
+    suffix: 'Cr',
+    prefix: '₹',
     label: 'Average annual revenue lost to stockouts per brand',
-    color: 'from-red-500/10 to-red-600/5',
-    textColor: 'text-red-500',
+    bg: 'from-rose-500/5 to-transparent',
+    textGradient: 'from-rose-500 to-rose-400',
   },
   {
     value: 34,
     suffix: '%',
     prefix: '',
     label: 'Of promotions run at a net loss due to poor demand signals',
-    color: 'from-amber-500/10 to-amber-600/5',
-    textColor: 'text-amber-500',
+    bg: 'from-amber-500/5 to-transparent',
+    textGradient: 'from-amber-500 to-amber-400',
   },
   {
     value: 47,
     suffix: 'hrs',
     prefix: '',
     label: 'Ops team hours wasted per week on manual demand planning',
-    color: 'from-orange-500/10 to-orange-600/5',
-    textColor: 'text-orange-500',
+    bg: 'from-violet-500/5 to-transparent',
+    textGradient: 'from-violet-500 to-violet-400',
   },
 ];
 
@@ -76,7 +76,7 @@ export function PainSection() {
   const inView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section className="relative w-full bg-muted/20 border-y border-border/30 text-foreground py-24 overflow-hidden">
+    <section className="relative w-full text-foreground py-32 overflow-hidden">
       {/* Radial glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_50%,rgba(239,68,68,0.03),transparent)]" />
 
@@ -105,7 +105,7 @@ export function PainSection() {
               initial={{ opacity: 0, y: 24 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.55, delay: i * 0.12 }}
-              className={`relative rounded-2xl border border-border/50 bg-gradient-to-br ${stat.color} p-8 flex flex-col gap-4 overflow-hidden bg-background shadow-sm`}
+              className={`relative rounded-2xl border border-border/50 bg-gradient-to-br ${stat.bg} p-8 flex flex-col gap-4 overflow-hidden bg-background shadow-sm`}
             >
               {/* Corner glow */}
               <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-foreground/[0.02] blur-2xl" />
@@ -114,7 +114,7 @@ export function PainSection() {
                 value={stat.value}
                 prefix={stat.prefix}
                 suffix={stat.suffix}
-                color={`from-foreground to-foreground/60`}
+                color={stat.textGradient}
                 inView={inView}
               />
 

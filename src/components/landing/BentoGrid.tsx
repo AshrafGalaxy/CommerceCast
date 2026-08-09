@@ -50,8 +50,8 @@ const cards = [
   {
     id: 'compliance',
     icon: ShieldCheck,
-    title: 'SOC 2 Type II',
-    desc: 'Enterprise-grade security out of the box. Your data is yours.',
+    title: 'Bank-grade security',
+    desc: 'SOC 2 Type II certified. Enterprise-grade encryption out of the box. Your data is yours.',
     size: 'small',
     gradient: 'from-slate-500/10 to-slate-600/5',
     iconColor: 'text-slate-400',

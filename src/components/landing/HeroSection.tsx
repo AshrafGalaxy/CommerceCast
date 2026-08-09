@@ -82,13 +82,13 @@ export function HeroSection() {
   const headerY = useTransform(smoothProgress, [0, 0.15], [0, -150]);
 
   // 2. Dashboard scroll up into center [0, 0.15]
-  const dashboardY = useTransform(smoothProgress, [0, 0.15], ["85vh", "10vh"]);
+  const dashboardY = useTransform(smoothProgress, [0, 0.15], ["65vh", "10vh"]);
 
   // 3. Dashboard expansions over [0.15, 0.35]
   const expandProgress = useTransform(smoothProgress, [0.15, 0.35], [0, 1]);
   const mockMaskOpacity = useTransform(smoothProgress, [0.15, 0.3], [1, 0]);
   const rotateX = useTransform(smoothProgress, [0.15, 0.35], ["8deg", "0deg"]);
-  const mockScale = useTransform(smoothProgress, [0.15, 0.35], [0.95, 1]);
+  const mockScale = useTransform(smoothProgress, [0.15, 0.35], [0.85, 1]);
 
   useMotionValueEvent(expandProgress, "change", (latest) => {
     if (latest > 0.9 && !isExpanded) setIsExpanded(true);
@@ -122,7 +122,7 @@ export function HeroSection() {
           {/* HEADER LAYER */}
           <motion.div
             style={{ opacity: headerOpacity, y: headerY }}
-            className="absolute top-28 w-full flex flex-col items-center text-center gap-8 px-4 z-10 pointer-events-auto"
+            className="absolute top-16 lg:top-20 w-full flex flex-col items-center text-center gap-8 px-4 z-10 pointer-events-auto"
           >
             {/* Eyebrow badge */}
             <motion.div
@@ -187,9 +187,10 @@ export function HeroSection() {
               rotateX,
               scale: mockScale,
               '--expand': expandProgress,
-              width: 'calc(1024px + (100vw - 256px - 1024px) * var(--expand))',
-              height: 'calc(550px + (100vh - 180px - 550px) * var(--expand))',
-              transformOrigin: 'bottom center'
+              transformOrigin: 'top center',
+              width: '100%',
+              maxWidth: 'min(1600px, min(95vw, calc((100vh - 20vh) * 1.777)))',
+              aspectRatio: '16/9'
             } as any}
             className="absolute z-20 flex flex-col"
           >

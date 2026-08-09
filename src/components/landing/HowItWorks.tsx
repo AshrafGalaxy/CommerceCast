@@ -63,14 +63,51 @@ export function HowItWorks() {
           {/* Animated SVG Connector line (desktop only) */}
           <div className="hidden md:block absolute top-7 left-[16.6%] right-[16.6%] h-12 -z-10 pointer-events-none">
             <svg className="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 100 24">
+              
+              {/* Base Trace */}
+              <path
+                d="M 0 12 H 16 L 22 24 H 78 L 84 12 H 100"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="0.5"
+                className="text-border"
+              />
+              
+              {/* Animated Progress Trace */}
               <motion.path
-                d="M 0 12 C 30 12, 70 12, 100 12"
+                d="M 0 12 H 16 L 22 24 H 78 L 84 12 H 100"
                 fill="none"
                 stroke="url(#gradientLine)"
                 strokeWidth="1.5"
-                strokeDasharray="4 4"
                 style={{ pathLength, opacity }}
               />
+              
+              {/* Data Particle 1 */}
+              <path
+                d="M 0 12 H 16 L 22 24 H 78 L 84 12 H 100"
+                fill="none"
+                stroke="#3B82F6"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeDasharray="0.5 150"
+                className="drop-shadow-[0_0_8px_rgba(59,130,246,1)]"
+              >
+                <animate attributeName="stroke-dashoffset" from="150" to="0" dur="2.5s" repeatCount="indefinite" />
+              </path>
+              
+              {/* Data Particle 2 */}
+              <path
+                d="M 0 12 H 16 L 22 24 H 78 L 84 12 H 100"
+                fill="none"
+                stroke="#8B5CF6"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeDasharray="1 150"
+                className="drop-shadow-[0_0_8px_rgba(139,92,246,1)]"
+              >
+                <animate attributeName="stroke-dashoffset" from="150" to="0" dur="3s" begin="1s" repeatCount="indefinite" />
+              </path>
+
               <defs>
                 <linearGradient id="gradientLine" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.2" />

@@ -7,7 +7,7 @@ import { Logo } from '@/components/ui/Logo';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { useUser } from '@/firebase';
 import { useTheme } from '@/contexts/theme-context';
-import { Suspense, useState } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 
 import { HeroSection } from '@/components/landing/HeroSection';
@@ -64,6 +64,8 @@ function Navbar() {
   const { scrollY } = useScroll();
   const { setTheme, resolvedTheme } = useTheme();
   const { user, isUserLoading } = useUser();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const isDark = resolvedTheme === 'dark';
 
@@ -115,7 +117,7 @@ function Navbar() {
                   exit={{ rotate: 30, opacity: 0 }}
                   transition={{ duration: 0.18 }}
                 >
-                  {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                  {mounted ? (isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />) : <div className="w-4 h-4" />}
                 </motion.span>
               </AnimatePresence>
             </button>

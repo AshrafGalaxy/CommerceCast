@@ -1,5 +1,6 @@
 'use client';
 
+import { Fragment } from 'react';
 import { motion } from 'framer-motion';
 import { Check, X, Minus } from 'lucide-react';
 
@@ -130,7 +131,7 @@ export function ComparisonSection() {
 
             <tbody>
               {Object.entries(grouped).map(([category, catRows]) => (
-                <>
+                <Fragment key={category}>
                   {/* Category header row */}
                   <tr key={`cat-${category}`} className="border-b border-border/30 bg-muted/10">
                     <td
@@ -164,7 +165,7 @@ export function ComparisonSection() {
                       ))}
                     </motion.tr>
                   ))}
-                </>
+                </Fragment>
               ))}
             </tbody>
           </table>
