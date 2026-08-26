@@ -27,6 +27,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
 import { Logo } from '@/components/ui/Logo';
@@ -211,7 +212,7 @@ export function OnboardingModal() {
     <Dialog open={isOpen} onOpenChange={(open) => !open && setIsOpen(false)}>
       <DialogContent className="sm:max-w-[580px] p-0 overflow-hidden rounded-3xl border border-border/80 bg-background/95 backdrop-blur-2xl shadow-2xl">
         {/* Top Progress Tracker */}
-        <div className="bg-muted/40 border-b border-border/60 p-5 flex items-center justify-between">
+        <DialogHeader className="bg-muted/40 border-b border-border/60 p-5 flex flex-row items-center justify-between space-y-0 text-left">
           <div className="flex items-center gap-3">
             <div className="p-1.5 rounded-lg border border-border/60 bg-card shadow-sm">
               <Logo className="w-5 h-5 text-primary" />
@@ -220,11 +221,14 @@ export function OnboardingModal() {
               <span className="text-[10px] font-bold tracking-wider uppercase text-muted-foreground font-sans">
                 Quick-Start Setup • Step {step} of 3
               </span>
-              <h2 className="text-sm font-bold font-headline text-foreground">
+              <DialogTitle className="text-sm font-bold font-headline text-foreground mt-0.5">
                 {step === 1 && 'Store & Identity'}
                 {step === 2 && 'Data Engine Setup'}
                 {step === 3 && 'Strategic Objectives'}
-              </h2>
+              </DialogTitle>
+              <DialogDescription className="sr-only">
+                Quick-start setup wizard to configure store preferences, data sources, and predictive AI models.
+              </DialogDescription>
             </div>
           </div>
 
@@ -243,7 +247,7 @@ export function OnboardingModal() {
               />
             ))}
           </div>
-        </div>
+        </DialogHeader>
 
         {/* Content Body */}
         <div className="p-6 sm:p-7 space-y-6">
