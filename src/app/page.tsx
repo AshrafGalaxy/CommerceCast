@@ -48,10 +48,10 @@ function NavLink({
     <Link
       href={href}
       onClick={onClick}
-      className="group relative text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 py-1"
+      className="group relative px-3.5 py-1 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 rounded-full hover:bg-muted/50"
     >
       {children}
-      <span className="absolute inset-x-0 -bottom-0.5 h-px bg-primary origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out" />
+      <span className="absolute inset-x-3 -bottom-0.5 h-[1.5px] bg-primary rounded-full origin-center scale-x-0 group-hover:scale-x-100 transition-transform duration-200 ease-out" />
     </Link>
   );
 }
@@ -79,29 +79,36 @@ function Navbar() {
         initial={{ y: -64, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className={`fixed top-0 inset-x-0 z-50 h-14 flex items-center transition-all duration-300 ${
+        className={`fixed top-0 inset-x-0 z-50 h-16 flex items-center transition-all duration-300 ${
           scrolled
-            ? 'bg-background/90 backdrop-blur-xl border-b border-border/40 shadow-sm'
+            ? 'bg-background/80 backdrop-blur-xl border-b border-border/40 shadow-sm'
             : 'bg-transparent'
         }`}
       >
-        <div className="container px-4 flex items-center gap-8 w-full">
+        <div className="container max-w-7xl px-4 sm:px-6 relative flex items-center justify-between h-full w-full mx-auto">
 
-          {/* Logo Container with Premium Material Styling */}
-          <div className="flex items-center gap-1.5 shrink-0 pl-1.5 pr-2 py-1 rounded-md border border-blue-500/20 bg-gradient-to-r from-blue-500/5 to-transparent backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),_0_2px_4px_rgba(0,0,0,0.05)] ring-1 ring-white/10 dark:ring-white/5 cursor-pointer">
-            <Logo className="w-6 h-6 text-primary drop-shadow-sm" />
-            <span className="text-[14px] font-bold font-headline tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">CommerceCast</span>
-          </div>
+          {/* Left: Brand Logo */}
+          <Link
+            href="/"
+            className="flex items-center gap-2 shrink-0 group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-lg"
+          >
+            <div className="flex items-center gap-1.5 pl-1.5 pr-2.5 py-1 rounded-md border border-blue-500/20 bg-gradient-to-r from-blue-500/10 via-blue-500/5 to-transparent backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),_0_2px_4px_rgba(0,0,0,0.05)] ring-1 ring-white/10 dark:ring-white/5 group-hover:border-blue-500/35 transition-colors">
+              <Logo className="w-5 h-5 text-primary drop-shadow-sm transition-transform duration-200 group-hover:scale-105" />
+              <span className="text-[14px] font-bold font-headline tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/80">
+                CommerceCast
+              </span>
+            </div>
+          </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-7">
+          {/* Center: Desktop Nav (Symmetrically anchored at the horizontal midpoint) */}
+          <nav className="hidden md:flex items-center gap-1 px-3 py-1.5 rounded-full border border-border/50 bg-background/70 backdrop-blur-md shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)] absolute left-1/2 -translate-x-1/2">
             {NAV_LINKS.map((l) => (
               <NavLink key={l.label} href={l.href}>{l.label}</NavLink>
             ))}
           </nav>
 
-          {/* Right actions */}
-          <div className="ml-auto flex items-center gap-2">
+          {/* Right: Actions */}
+          <div className="flex items-center gap-2">
 
             {/* Theme toggle */}
             <button
