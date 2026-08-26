@@ -92,9 +92,9 @@ function Navbar() {
             href="/"
             className="flex items-center gap-2 shrink-0 group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-lg"
           >
-            <div className="flex items-center gap-1.5 pl-1.5 pr-2.5 py-1 rounded-md border border-blue-500/20 bg-gradient-to-r from-blue-500/10 via-blue-500/5 to-transparent backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),_0_2px_4px_rgba(0,0,0,0.05)] ring-1 ring-white/10 dark:ring-white/5 group-hover:border-blue-500/35 transition-colors">
+            <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl border border-border/60 bg-card/60 backdrop-blur-md shadow-sm group-hover:border-primary/40 transition-colors">
               <Logo className="w-5 h-5 text-primary drop-shadow-sm transition-transform duration-200 group-hover:scale-105" />
-              <span className="text-[14px] font-bold font-headline tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/80">
+              <span className="text-[14px] font-bold font-headline tracking-tight text-foreground">
                 CommerceCast
               </span>
             </div>
