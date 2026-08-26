@@ -57,7 +57,7 @@ function BespokeRocketIcon({ className = 'w-3.5 h-3.5' }: { className?: string }
 // Supported E-Commerce platforms
 const PLATFORMS = [
   { id: 'shopify', name: 'Shopify', desc: 'Direct API & Webhooks', color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/30' },
-  { id: 'woocommerce', name: 'WooCommerce', desc: 'REST API & Plugin', color: 'text-violet-500 bg-violet-500/10 border-violet-500/30' },
+  { id: 'woocommerce', name: 'WooCommerce', desc: 'REST API & Plugin', color: 'text-indigo-500 bg-indigo-500/10 border-indigo-500/30' },
   { id: 'amazon', name: 'Amazon Seller', desc: 'SP-API Orders', color: 'text-amber-500 bg-amber-500/10 border-amber-500/30' },
   { id: 'sheets', name: 'Google Sheets / CSV', desc: 'Live Sheet & Files', color: 'text-blue-500 bg-blue-500/10 border-blue-500/30' },
 ];
@@ -76,7 +76,7 @@ const GOALS = [
     title: 'Inventory & Reorder Intelligence',
     desc: 'Automate ABC classification, eliminate dead inventory, and calculate exact safety stock thresholds.',
     icon: Boxes,
-    color: 'text-violet-500 bg-violet-500/10',
+    color: 'text-sky-500 bg-sky-500/10',
   },
   {
     id: 'promotions',
@@ -532,7 +532,7 @@ export function OnboardingModal() {
               size="sm"
               disabled={isSubmitting}
               onClick={handleFinish}
-              className="text-xs font-bold px-6 h-9 rounded-xl flex items-center gap-1.5 shadow-md shadow-primary/20 bg-gradient-to-r from-blue-600 to-indigo-600 border-0 hover:opacity-90"
+              className="text-xs font-bold px-6 h-9 rounded-xl flex items-center gap-1.5 shadow-md shadow-primary/20 hover:shadow-lg transition-all"
             >
               <BespokeRocketIcon className="w-3.5 h-3.5" />
               <span>Launch Dashboard</span>
