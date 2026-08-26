@@ -6,15 +6,9 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
-  Sparkles,
+  Loader2,
   TrendingUp,
   ShieldCheck,
-  Zap,
-  Star,
-  CheckCircle2,
-  Lock,
-  Mail,
-  Loader2,
 } from 'lucide-react';
 import { useAuth, useUser } from '@/firebase';
 import {
@@ -40,6 +34,8 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
+// ─── Custom Premium Iconography ──────────────────────────────────────────────
+
 function GoogleIcon({ className = 'w-4 h-4' }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24">
@@ -58,6 +54,33 @@ function GoogleIcon({ className = 'w-4 h-4' }: { className?: string }) {
       <path
         fill="#EA4335"
         d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
+      />
+    </svg>
+  );
+}
+
+function LockSecurityIcon({ className = 'w-3.5 h-3.5' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="none">
+      <rect x="4" y="8" width="12" height="10" rx="3" fill="#3B82F6" fillOpacity="0.2" stroke="#3B82F6" strokeWidth="1.5" />
+      <path d="M7 8V5.5C7 3.567 8.343 2 10 2C11.657 2 13 3.567 13 5.5V8" stroke="#60A5FA" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="10" cy="13" r="1.5" fill="#3B82F6" />
+    </svg>
+  );
+}
+
+function GoldStarIcon({ className = 'w-3.5 h-3.5' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="none">
+      <defs>
+        <linearGradient id="gold-star" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#FBBF24" />
+          <stop offset="100%" stopColor="#D97706" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M10 2L12.5 7.5L18.5 8.2L14 12.3L15.3 18.2L10 15.2L4.7 18.2L6 12.3L1.5 8.2L7.5 7.5L10 2Z"
+        fill="url(#gold-star)"
       />
     </svg>
   );
@@ -184,9 +207,13 @@ function LoginForm() {
             <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
             Back to home
           </Link>
-          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-blue-500/20 bg-blue-500/5 text-xs font-medium text-blue-500">
-            <ShieldCheck className="w-3.5 h-3.5" />
-            Secure Portal
+
+          {/* Bespoke Luxury Badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 dark:bg-blue-950/40 backdrop-blur-md shadow-[0_2px_8px_rgba(59,130,246,0.12)]">
+            <LockSecurityIcon className="w-3.5 h-3.5 shrink-0" />
+            <span className="text-[11px] font-bold tracking-wide text-blue-600 dark:text-blue-400">
+              Enterprise Portal
+            </span>
           </div>
         </div>
 
@@ -245,17 +272,15 @@ function LoginForm() {
                 <Label htmlFor="email" className="text-xs font-semibold text-foreground">
                   Work Email
                 </Label>
-                <div className="relative">
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="name@company.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="h-11 rounded-xl bg-background/50 border-border/70 focus-visible:ring-primary/30 pl-3.5 text-sm"
-                  />
-                </div>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="name@company.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="h-11 rounded-xl bg-background/50 border-border/70 focus-visible:ring-primary/30 pl-3.5 text-sm"
+                />
               </div>
 
               <div className="space-y-2">
@@ -354,11 +379,9 @@ function LoginForm() {
         <div className="flex items-center justify-between text-[11px] text-muted-foreground/70 border-t border-border/40 pt-4">
           <span>© 2026 CommerceCast Inc.</span>
           <div className="flex items-center gap-3">
-            <span className="hover:text-foreground cursor-pointer">Privacy</span>
+            <span>SOC2 Type II</span>
             <span>•</span>
-            <span className="hover:text-foreground cursor-pointer">Terms</span>
-            <span>•</span>
-            <span className="hover:text-foreground cursor-pointer">SOC2</span>
+            <span>256-bit Encryption</span>
           </div>
         </div>
       </div>
@@ -372,13 +395,12 @@ function LoginForm() {
 
         {/* Top Tagline */}
         <div className="relative z-10 flex items-center justify-between">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-background/80 border border-border/60 text-xs font-semibold backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5 text-blue-500" />
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-background/80 border border-border/60 text-xs font-semibold backdrop-blur-md shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span>Autonomous E-Commerce Intelligence</span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            Models Live & Synchronized
+            <span>High-Throughput ML Pipeline</span>
           </div>
         </div>
 
@@ -462,9 +484,9 @@ function LoginForm() {
 
         {/* Bottom Testimonial & Endorsement */}
         <div className="relative z-10 rounded-2xl border border-border/60 bg-background/50 backdrop-blur-md p-4 flex items-center gap-4">
-          <div className="flex -space-x-1">
+          <div className="flex -space-x-0.5 shrink-0">
             {[...Array(5)].map((_, i) => (
-              <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+              <GoldStarIcon key={i} className="w-3.5 h-3.5" />
             ))}
           </div>
           <p className="text-xs text-muted-foreground italic leading-relaxed">

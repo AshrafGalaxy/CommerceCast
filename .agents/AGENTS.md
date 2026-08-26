@@ -5,7 +5,7 @@
   - Never mix Server Component configs (e.g. `export const dynamic = 'force-dynamic'`) with Client Components (`'use client'`). Doing so breaks Fast Refresh.
   - Be highly vigilant about unescaped quotes (e.g. `It's` instead of `"It's"`) inside TSX files, as this can cause parsing errors and crash the Turbopack / PostCSS loaders.
   - **Smooth Scrolling**: Never apply `scroll-behavior: smooth` or `@apply scroll-smooth` on the `<html>` element via CSS. Next.js App Router detects this and emits a browser warning because it conflicts with the router's own scroll restoration. Instead, always add `data-scroll-behavior="smooth"` to the `<html>` element in `layout.tsx`.
-  - **Framer Motion Colors**: NEVER attempt to animate CSS variables (e.g., `hsl(var(--muted-foreground))`) using Framer Motion's `animate` prop. Framer Motion cannot interpolate CSS variables, which crashes the animation loop and spams the console with `value not animatable` warnings. Instead, apply tailwind classes dynamically in the `className` prop for color transitions.
+  - **Iconography & Visual Assets**: Never use simple, generic, or unstyled icons (e.g. unstyled stars, generic sparkles, or default icons). Every icon and visual element must be top-tier, luxury SaaS quality — encased in bespoke micro-containers, glassmorphic pills, or subtle gradient fills that elevate the product's perceived value and aesthetic elegance.
   - Never repeat mistakes related to dependencies, frameworks, Next.js, or frontend rendering environments.
 
 ## Git & Version Control

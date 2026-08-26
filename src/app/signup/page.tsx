@@ -6,17 +6,8 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
-  Sparkles,
-  ShieldCheck,
-  Zap,
-  Check,
-  CheckCircle2,
-  Lock,
-  Mail,
   Loader2,
-  Database,
-  Layers,
-  BarChart3,
+  ShieldCheck,
 } from 'lucide-react';
 import { useAuth, useUser } from '@/firebase';
 import {
@@ -32,6 +23,8 @@ import { PasswordInput } from '@/components/ui/password-input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
+
+// ─── Custom Premium Iconography ──────────────────────────────────────────────
 
 function GoogleIcon({ className = 'w-4 h-4' }: { className?: string }) {
   return (
@@ -51,6 +44,76 @@ function GoogleIcon({ className = 'w-4 h-4' }: { className?: string }) {
       <path
         fill="#EA4335"
         d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
+      />
+    </svg>
+  );
+}
+
+function DiamondSparkleIcon({ className = 'w-3.5 h-3.5' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="none">
+      <defs>
+        <linearGradient id="sparkle-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#34D399" />
+          <stop offset="100%" stopColor="#059669" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M10 2L12.4 7.6L18 10L12.4 12.4L10 18L7.6 12.4L2 10L7.6 7.6L10 2Z"
+        fill="url(#sparkle-grad)"
+      />
+      <circle cx="10" cy="10" r="1.5" fill="#FFFFFF" />
+    </svg>
+  );
+}
+
+function IngestPipelineIcon({ className = 'w-5 h-5' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
+      <path d="M4 6c0-1.657 3.582-3 8-3s8 1.343 8 3" stroke="#60A5FA" />
+      <path d="M4 6v6c0 1.657 3.582 3 8 3s8-1.343 8-3V6" stroke="#3B82F6" />
+      <path d="M4 12v6c0 1.657 3.582 3 8 3s8-1.343 8-3v-6" stroke="#2563EB" />
+      <circle cx="12" cy="6" r="1.5" fill="#60A5FA" />
+      <circle cx="12" cy="12" r="1.5" fill="#3B82F6" />
+      <circle cx="12" cy="18" r="1.5" fill="#2563EB" />
+    </svg>
+  );
+}
+
+function NeuralEnsembleIcon({ className = 'w-5 h-5' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
+      <circle cx="6" cy="6" r="2.5" stroke="#C4B5FD" fill="#8B5CF6" fillOpacity="0.3" />
+      <circle cx="18" cy="6" r="2.5" stroke="#C4B5FD" fill="#8B5CF6" fillOpacity="0.3" />
+      <circle cx="12" cy="18" r="3" stroke="#A78BFA" fill="#7C3AED" fillOpacity="0.4" />
+      <path d="M7.5 8L10.5 15.5" stroke="#A78BFA" strokeDasharray="2 2" />
+      <path d="M16.5 8L13.5 15.5" stroke="#A78BFA" strokeDasharray="2 2" />
+      <path d="M8.5 6H15.5" stroke="#C4B5FD" />
+    </svg>
+  );
+}
+
+function InventoryVelocityIcon({ className = 'w-5 h-5' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
+      <path d="M12 3L20 7.5V16.5L12 21L4 16.5V7.5L12 3Z" stroke="#34D399" />
+      <path d="M12 12L20 7.5" stroke="#10B981" />
+      <path d="M12 12V21" stroke="#059669" />
+      <path d="M12 12L4 7.5" stroke="#10B981" />
+      <circle cx="12" cy="12" r="1.75" fill="#34D399" />
+    </svg>
+  );
+}
+
+function CheckmarkIcon({ className = 'w-3 h-3' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 16 16" fill="none">
+      <path
+        d="M3.5 8.5L6.5 11.5L12.5 4.5"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -80,14 +143,14 @@ function SignupForm() {
 
   const strengthColor =
     criteriaCount === 3
-      ? 'bg-emerald-500'
+      ? 'bg-emerald-500 shadow-sm shadow-emerald-500/50'
       : criteriaCount === 2
-      ? 'bg-amber-500'
-      : 'bg-rose-500';
+      ? 'bg-amber-500 shadow-sm shadow-amber-500/50'
+      : 'bg-rose-500 shadow-sm shadow-rose-500/50';
 
   const strengthText =
     criteriaCount === 3
-      ? 'Strong & Secure'
+      ? 'Enterprise Grade'
       : criteriaCount === 2
       ? 'Moderate'
       : password.length > 0
@@ -180,9 +243,13 @@ function SignupForm() {
             <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
             Back to home
           </Link>
-          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-emerald-500/20 bg-emerald-500/5 text-xs font-medium text-emerald-500">
-            <Sparkles className="w-3.5 h-3.5" />
-            Free Trial • No Card
+
+          {/* Bespoke Luxury Badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 dark:bg-emerald-950/40 backdrop-blur-md shadow-[0_2px_8px_rgba(16,185,129,0.12)]">
+            <DiamondSparkleIcon className="w-3.5 h-3.5 shrink-0" />
+            <span className="text-[11px] font-bold tracking-wide text-emerald-600 dark:text-emerald-400">
+              14-Day Enterprise Trial
+            </span>
           </div>
         </div>
 
@@ -206,7 +273,7 @@ function SignupForm() {
                 Create your workspace
               </h1>
               <p className="text-sm text-muted-foreground">
-                Start predicting trends and preventing stockouts in under 3 minutes.
+                Deploy automated demand forecasting and inventory intelligence in 3 minutes.
               </p>
             </div>
 
@@ -261,7 +328,7 @@ function SignupForm() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  placeholder="Create a strong password"
+                  placeholder="Create a secure password"
                   className="h-11 rounded-xl bg-background/50 border-border/70 focus-visible:ring-primary/30 text-sm"
                 />
 
@@ -289,23 +356,23 @@ function SignupForm() {
                       />
                     </div>
 
-                    {/* Criteria Checklist */}
+                    {/* Criteria Checklist with Bespoke Check Icons */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5 pt-1">
-                      <div className={`flex items-center gap-1.5 text-[10px] font-medium transition-colors ${hasMinLength ? 'text-emerald-500' : 'text-muted-foreground'}`}>
-                        <div className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[8px] ${hasMinLength ? 'bg-emerald-500/20 text-emerald-500' : 'bg-muted text-muted-foreground'}`}>
-                          ✓
+                      <div className={`flex items-center gap-1.5 text-[10px] font-medium transition-colors ${hasMinLength ? 'text-emerald-600 dark:text-emerald-400' : 'text-muted-foreground'}`}>
+                        <div className={`w-4 h-4 rounded-full flex items-center justify-center transition-all ${hasMinLength ? 'bg-emerald-500/20 text-emerald-500 border border-emerald-500/40' : 'bg-muted text-muted-foreground border border-border/50'}`}>
+                          <CheckmarkIcon className="w-2.5 h-2.5" />
                         </div>
                         <span>8+ characters</span>
                       </div>
-                      <div className={`flex items-center gap-1.5 text-[10px] font-medium transition-colors ${hasNumber ? 'text-emerald-500' : 'text-muted-foreground'}`}>
-                        <div className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[8px] ${hasNumber ? 'bg-emerald-500/20 text-emerald-500' : 'bg-muted text-muted-foreground'}`}>
-                          ✓
+                      <div className={`flex items-center gap-1.5 text-[10px] font-medium transition-colors ${hasNumber ? 'text-emerald-600 dark:text-emerald-400' : 'text-muted-foreground'}`}>
+                        <div className={`w-4 h-4 rounded-full flex items-center justify-center transition-all ${hasNumber ? 'bg-emerald-500/20 text-emerald-500 border border-emerald-500/40' : 'bg-muted text-muted-foreground border border-border/50'}`}>
+                          <CheckmarkIcon className="w-2.5 h-2.5" />
                         </div>
                         <span>1+ number</span>
                       </div>
-                      <div className={`flex items-center gap-1.5 text-[10px] font-medium transition-colors ${hasSpecialChar ? 'text-emerald-500' : 'text-muted-foreground'}`}>
-                        <div className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[8px] ${hasSpecialChar ? 'bg-emerald-500/20 text-emerald-500' : 'bg-muted text-muted-foreground'}`}>
-                          ✓
+                      <div className={`flex items-center gap-1.5 text-[10px] font-medium transition-colors ${hasSpecialChar ? 'text-emerald-600 dark:text-emerald-400' : 'text-muted-foreground'}`}>
+                        <div className={`w-4 h-4 rounded-full flex items-center justify-center transition-all ${hasSpecialChar ? 'bg-emerald-500/20 text-emerald-500 border border-emerald-500/40' : 'bg-muted text-muted-foreground border border-border/50'}`}>
+                          <CheckmarkIcon className="w-2.5 h-2.5" />
                         </div>
                         <span>1+ symbol</span>
                       </div>
@@ -376,12 +443,12 @@ function SignupForm() {
 
         {/* Top Tagline */}
         <div className="relative z-10 flex items-center justify-between">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-background/80 border border-border/60 text-xs font-semibold backdrop-blur-md">
-            <Zap className="w-3.5 h-3.5 text-amber-500" />
-            <span>Instant 3-Minute Workspace Activation</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-background/80 border border-border/60 text-xs font-semibold backdrop-blur-md shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Autonomous E-Commerce Intelligence</span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
-            <span>Zero Setup Fees</span>
+            <span>Zero Card Required</span>
           </div>
         </div>
 
@@ -402,21 +469,21 @@ function SignupForm() {
               </h3>
             </div>
 
-            {/* 3 Step Pipeline Preview Cards */}
+            {/* 3 Step Pipeline Preview Cards with Bespoke SVGs */}
             <div className="space-y-3">
-              <div className="flex items-center gap-3.5 p-3 rounded-2xl bg-background/60 border border-border/60">
-                <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center shrink-0">
-                  <Database className="w-4 h-4" />
+              <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-background/70 border border-border/60 shadow-sm">
+                <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
+                  <IngestPipelineIcon className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-foreground">1. Ingest Anywhere</h4>
+                  <h4 className="text-xs font-bold text-foreground">1. Universal Data Ingestion</h4>
                   <p className="text-[11px] text-muted-foreground">Google Sheets, Shopify, CSV, or live database streams.</p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3.5 p-3 rounded-2xl bg-background/60 border border-border/60">
-                <div className="w-9 h-9 rounded-xl bg-violet-500/10 text-violet-500 flex items-center justify-center shrink-0">
-                  <Layers className="w-4 h-4" />
+              <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-background/70 border border-border/60 shadow-sm">
+                <div className="w-10 h-10 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center shrink-0">
+                  <NeuralEnsembleIcon className="w-5 h-5" />
                 </div>
                 <div>
                   <h4 className="text-xs font-bold text-foreground">2. Python AI Ensemble Forecast</h4>
@@ -424,9 +491,9 @@ function SignupForm() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3.5 p-3 rounded-2xl bg-background/60 border border-border/60">
-                <div className="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0">
-                  <BarChart3 className="w-4 h-4" />
+              <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-background/70 border border-border/60 shadow-sm">
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
+                  <InventoryVelocityIcon className="w-5 h-5" />
                 </div>
                 <div>
                   <h4 className="text-xs font-bold text-foreground">3. Automated Reorder Points</h4>
@@ -438,19 +505,27 @@ function SignupForm() {
             {/* Feature Highlights Grid */}
             <div className="grid grid-cols-2 gap-2.5 pt-1 text-[11px] text-muted-foreground">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                <div className="w-4 h-4 rounded-full bg-emerald-500/15 flex items-center justify-center text-emerald-500 shrink-0">
+                  <CheckmarkIcon className="w-2.5 h-2.5" />
+                </div>
                 <span>Unlimited Historical Uploads</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-                <span>Multi-Model Accuracy Tournaments</span>
+                <div className="w-4 h-4 rounded-full bg-emerald-500/15 flex items-center justify-center text-emerald-500 shrink-0">
+                  <CheckmarkIcon className="w-2.5 h-2.5" />
+                </div>
+                <span>Multi-Model Accuracy Ranks</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                <div className="w-4 h-4 rounded-full bg-emerald-500/15 flex items-center justify-center text-emerald-500 shrink-0">
+                  <CheckmarkIcon className="w-2.5 h-2.5" />
+                </div>
                 <span>Price Elasticity Simulator</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                <div className="w-4 h-4 rounded-full bg-emerald-500/15 flex items-center justify-center text-emerald-500 shrink-0">
+                  <CheckmarkIcon className="w-2.5 h-2.5" />
+                </div>
                 <span>Export PDF Executive Reports</span>
               </div>
             </div>
