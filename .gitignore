@@ -50,13 +50,12 @@ firestore-debug.log
 *.xlsx
 *.xls
 
-# Python Backend
-python-backend/venv/
-python-backend/win_env/
-
-python-backend/env/
-python-backend/__pycache__/
-python-backend/*.pyc
+# Backend (FastAPI ML Service)
+backend/venv/
+backend/win_env/
+backend/env/
+backend/__pycache__/
+backend/*.pyc
 *.pyc
 __pycache__/
 

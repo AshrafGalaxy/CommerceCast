@@ -98,7 +98,7 @@ We use a modern, performance-first stack:
 npm install
 
 # 2. Setup Python Backend
-cd python-backend
+cd backend
 python -m venv venv
 .\venv\Scripts\Activate
 pip install -r requirements.txt
@@ -111,7 +111,7 @@ pip install -r requirements.txt
 npm run dev
 
 # Terminal 2: Backend
-cd python-backend
+cd backend
 python main.py
 ```
 

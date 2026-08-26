@@ -419,7 +419,7 @@ export default function ForecastingPage() {
           };
         } catch (pyError: any) {
           console.error("Python forecast failed", pyError);
-          setError(`Failed to connect to Python backend for ${backendModelName}. Ensure 'python main.py' is running in the 'python-backend' folder.`);
+          setError(`Failed to connect to backend for ${backendModelName}. Ensure 'python main.py' is running in the 'backend' folder.`);
           // Fallback or just return
           setIsLoading(false);
           return;
