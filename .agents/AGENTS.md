@@ -11,3 +11,4 @@
 ## Git & Version Control
 - **Commit Granularity**: Make a commit (and push) after each distinct type of change or logical feature. Do not stack too many changes together in a single commit.After any type of change in the code, the commit should be made to the repository. 
 - **Commit Messages**: Write concise, descriptive, and proper commit messages that clearly explain the *why* and *what* of the change (e.g., `feat: redesign sticky features component for better scroll tracking`).
+- **Local Dev/Test Scripts**: NEVER commit local testing or running scripts (e.g. `dev.ps1`, `scripts/dev.js`, `scripts/verify.js`, or custom runner scripts) to GitHub. Keep them strictly in `.gitignore` and preserve them for local developer use only.

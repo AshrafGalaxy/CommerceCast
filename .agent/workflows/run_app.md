@@ -2,41 +2,26 @@
 description: How to run the CommerceCast application
 ---
 
-### Option 1: Run Everything in One Terminal (Recommended)
+1. Start the Python Backend
+   - Open a terminal
+   - Navigate to `python-backend`
+   - Activate virtual environment (if not already active)
+   - Run `python main.py`
 
-Run the unified full-stack dev runner (starts both Python FastAPI backend and Next.js Turbopack frontend with unified colorized logs):
+   Command:
 
-```powershell
-npm run dev:all
-# or
-.\dev.ps1
-```
+   ```powershell
+   cd python-backend
+   python main.py
+   ```
 
-- **Frontend:** `http://localhost:9002`
-- **Backend API:** `http://localhost:8000`
+2. Start the Next.js Frontend
+   - Open a new terminal
+   - Run `npm run dev`
 
----
+   Command:
 
-### Option 2: Instant Local Verification & Test Suite
+   ```powershell
+   npm run dev
+   ```
 
-Run full-suite TypeScript check, Next.js build compilation test, and Python syntax validation before pushing:
-
-```powershell
-npm run verify
-```
-
----
-
-### Option 3: Run In Separate Terminals
-
-**Terminal 1: Python Backend**
-```powershell
-cd python-backend
-.\venv\Scripts\Activate
-python main.py
-```
-
-**Terminal 2: Next.js Frontend**
-```powershell
-npm run dev
-```

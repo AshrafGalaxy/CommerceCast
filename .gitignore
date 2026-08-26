@@ -64,3 +64,11 @@ DEPLOYMENT.md
 
 # Build Logs
 build_log*.txt
+
+# Local Dev & Test Runner Scripts
+dev.ps1
+scripts/dev.js
+scripts/verify.js
+scripts/test*.js
+scripts/dev*.js
+
