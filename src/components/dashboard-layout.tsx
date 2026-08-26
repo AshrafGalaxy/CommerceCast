@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
-  Sparkles,
   AreaChart,
   Badge,
   Bot,
@@ -16,6 +15,7 @@ import {
   Scale,
   Package,
 } from 'lucide-react';
+import { Logo } from '@/components/ui/Logo';
 
 import {
   SidebarProvider,
@@ -47,13 +47,18 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   return (
     <SidebarProvider>
       <Sidebar>
-        <SidebarHeader className="p-4">
+        <SidebarHeader className="p-4 border-b border-sidebar-border">
           <Link
             href="/dashboard"
-            className="flex items-center gap-2 text-primary-foreground hover:text-primary-foreground/80 transition-colors"
+            className="flex items-center gap-2.5 text-sidebar-foreground hover:opacity-90 transition-opacity"
           >
-            <Sparkles className="h-6 w-6 text-accent" />
-            <h2 className="text-lg font-semibold font-headline">CommerceCast</h2>
+            <div className="p-1.5 rounded-xl border border-border/60 bg-card shadow-sm shrink-0">
+              <Logo className="h-5 w-5 text-primary" />
+            </div>
+            <div className="flex flex-col min-w-0">
+              <h2 className="text-sm font-bold font-headline leading-tight tracking-tight truncate">CommerceCast</h2>
+              <span className="text-[10px] text-muted-foreground font-sans font-medium">Enterprise Intelligence</span>
+            </div>
           </Link>
         </SidebarHeader>
         <SidebarContent>

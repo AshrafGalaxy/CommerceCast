@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Sparkles,
   ShoppingBag,
   Store,
   Database,
@@ -31,6 +30,29 @@ import {
 } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
 import { Logo } from '@/components/ui/Logo';
+
+function BespokeDataPackIcon({ className = 'w-4 h-4' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="none">
+      <path d="M10 2L17 6V14L10 18L3 14V6L10 2Z" stroke="#3B82F6" strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M10 10L17 6" stroke="#60A5FA" strokeWidth="1.5" />
+      <path d="M10 10V18" stroke="#2563EB" strokeWidth="1.5" />
+      <path d="M10 10L3 6" stroke="#60A5FA" strokeWidth="1.5" />
+      <circle cx="10" cy="10" r="1.5" fill="#3B82F6" />
+    </svg>
+  );
+}
+
+function BespokeRocketIcon({ className = 'w-3.5 h-3.5' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="none">
+      <path d="M10 2C13 4 15 8 15 12L10 15L5 12C5 8 7 4 10 2Z" fill="currentColor" fillOpacity="0.2" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M5 12L2 14L4 17L7 16" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round" />
+      <path d="M15 12L18 14L16 17L13 16" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round" />
+      <circle cx="10" cy="8" r="1.5" fill="currentColor" />
+    </svg>
+  );
+}
 
 // Supported E-Commerce platforms
 const PLATFORMS = [
@@ -373,7 +395,7 @@ export function OnboardingModal() {
                     }`}
                   >
                     <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center shrink-0 mt-0.5">
-                      <Sparkles className="w-4 h-4" />
+                      <BespokeDataPackIcon className="w-4 h-4" />
                     </div>
                     <div className="space-y-1 flex-1">
                       <div className="flex items-center justify-between">
@@ -512,7 +534,7 @@ export function OnboardingModal() {
               onClick={handleFinish}
               className="text-xs font-bold px-6 h-9 rounded-xl flex items-center gap-1.5 shadow-md shadow-primary/20 bg-gradient-to-r from-blue-600 to-indigo-600 border-0 hover:opacity-90"
             >
-              <Sparkles className="w-3.5 h-3.5" />
+              <BespokeRocketIcon className="w-3.5 h-3.5" />
               <span>Launch Dashboard</span>
             </Button>
           )}
